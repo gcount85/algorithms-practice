@@ -1,5 +1,4 @@
 개수 = int(input())
-# 리스트 = []
 for i in range(개수):
     케이스 = input()
     점수 = 0
