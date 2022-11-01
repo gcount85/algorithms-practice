@@ -14,10 +14,6 @@ import sys
 # 	스타트와 대각선 위치면 안됨(대각선인걸 어떻게 알것인가?)
 # 	안되면 return;
 # 	되면 return 열 인덱스 반환 (원래행+1, 열)
-N = int(sys.stdin.readline())
-# N = 8
-array = [0] * N   ## [0, 0, 0, 0, 0, 0, 0, 0] 각 인덱스는 i행을 의미, 원소값은 i행의 열 번호를 의미  
-c = 0
 
 def promising(r):               #탐색행번호    ## 0~i-1까지의 col과 각각 비교해야 함!! 
     for i in range(r):          #0부터 r-1까지의 행번호
@@ -37,6 +33,11 @@ def queen(r):  #행, c
             array[r] = col
             if promising(r):   #이거 트루로 하면 안댐!!! 
                 queen(r+1)
+
+N = int(sys.stdin.readline())
+# N = 8
+array = [0] * N   ## [0, 0, 0, 0, 0, 0, 0, 0] 각 인덱스는 i행을 의미, 원소값은 i행의 열 번호를 의미  
+c = 0
 
 queen(0)
 print(c)
