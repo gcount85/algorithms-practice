@@ -28,6 +28,7 @@ for i in range(N):
 print(더해(N-1, ans))
 
 
+## 순열 조합 함수 있다고 함 !! 
     
         
 
