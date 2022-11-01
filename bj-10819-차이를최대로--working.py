@@ -1,4 +1,4 @@
-import sys, random
+import sys, itertools
 
 def 더해(i, ans):
     if i == 0:
