@@ -15,7 +15,6 @@ A = list(map(int, sys.stdin.readline().split()))
 print(max(합목록))
 
 
-## 순열 조합 함수 있다고 함 !! 
     
         
 
