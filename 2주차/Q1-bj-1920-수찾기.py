@@ -8,7 +8,7 @@ import sys
 
 # 이분 탐색 재귀 함수
 def bi_search(num, lst, low, high):
-    if (low > high):
+    if (low > high):  # low가 high보다 커지는 상황은 숫자가 없어서 인덱스가 역전되는 것 
         return 0
     else:
         mid = (low + high) // 2
