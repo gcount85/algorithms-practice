@@ -10,11 +10,9 @@
 # 적어도 M미터의 나무를 가져가기 위해 설정할 수 있는 높이의 최대값
 # 1 ≤ N ≤ 1,000,000
 # 1 ≤ M ≤ 2,000,000,000
+# 나무높이는 1,000,000,000보다 작거나 같은 양의 정수 또는 0이다.
+# 절단기 높이는 0이상 정수
 
-# 예시
-# 나무의수N = 5 
-# M = 20
-# height_lst = [4, 42, 40, 26, 46]
 
 # 높이의 최소값부터 최대값까지 range 뽑아 정렬하고 중간값을 mid로 설정
 # mid로 자른 값이 7이랑 같으면  return
@@ -24,14 +22,19 @@
 
 import sys
 
-N = 1 
-M = 2
-height_lst = [2, 2]
+# 예시
+N = 5 
+M = 20
+height_lst = [4, 42, 40, 26, 46]
+
+# N = 1 
+# M = 500
+# height_lst = [1000000000, 1000000000, 1000000000, 1000000000]
 
 # N = int(sys.stdin.readline())
 # M = int(sys.stdin.readline())
 # height_lst = list(map(int, sys.stdin.readline().split()))
-lst = range(min(height_lst)-1, max(height_lst)+1) 
+lst = range(0, max(height_lst))   # H의 범위 (0부터 나무 높이의 최대값)
 
 
 def find_H(M, lst, low, high):
