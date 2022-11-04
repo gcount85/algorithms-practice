@@ -29,24 +29,24 @@ import sys
 
 N, M = list(map(int, sys.stdin.readline().split()))
 height_lst = list(map(int, sys.stdin.readline().split()))
-H_range = range(0, max(height_lst))   # H의 범위 (0부터 나무 높이의 최대값)
+# H_range = range(0, max(height_lst))   # H의 범위 (0부터 나무 높이의 최대값)
 
-def find_H(M, H_range, low, high):
+def find_H(M, low, high):
     global height_lst
     # if (low > high):  # low가 high보다 커지는 상황은 값이 없어서 인덱스가 역전되는 것 (이 문제는 필요없음)
     #     return False
     # else:
     mid = (low + high) // 2
-    H = sum([i-H_range[mid] for i in height_lst if i > H_range[mid]])
+    H = sum([i-mid for i in height_lst if i > mid])
     # print(H)
     if H == M:
-        return H_range[mid]
+        return mid
     elif H < M:
-        return find_H(M, H_range, low, mid-1)
+        return find_H(M, low, mid-1)
     else:
-        return find_H(M, H_range, mid+1, high)
+        return find_H(M, mid+1, high)
 
-print(find_H(M, H_range, 0, len(H_range)-1))
+print(find_H(M, 0, max(height_lst)-1))
 
     
     
