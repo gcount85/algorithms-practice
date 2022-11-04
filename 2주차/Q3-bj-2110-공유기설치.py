@@ -2,12 +2,12 @@
 
 import sys
 
-# N = 5
-# C = 3
-# houses = [1, 2, 4, 8, 9]
+N = 5
+C = 3
+houses = [1, 2, 4, 8, 9]
 
-N, C = map(int, sys.stdin.readline().split())
-houses = [int(sys.stdin.readline()) for _ in range(N)]
+# N, C = map(int, sys.stdin.readline().split())
+# houses = [int(sys.stdin.readline()) for _ in range(N)]
 houses.sort()
 
 dis_range = range(1, houses[-1]-houses[0]+1)  # 거리의 범위는 1부터, 젤 서로 먼 집끼리의 거리
