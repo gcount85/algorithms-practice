@@ -7,20 +7,19 @@
 # 용액의 특성값을 나타내는 N개의 정수
 import sys
 
-N = 5
-values = [-97, 10, 1, -2, -1, 4]
+# N = 5
+# values = [-97, 10, 1, -2, -1, 4]
+# values.sort()
 
-# N = int(sys.stdin.readline())
-# values = list(map(int, sys.stdin.readline().split()))
-values.sort()
+N = int(sys.stdin.readline())
+values = sorted(list(map(int, sys.stdin.readline().split())))
 answer = -1
 
-mid_index = N // 2
-음 = values[:mid_index]
-양 = values[mid_index:]
+mid_index = (N-1) // 2
+음 = [i for i in values if i < 0]
 
 def search(원소, posi_lst, low_index, high_index):
-    if (low_index >= high_index):  # low_index가 high_index보다 같은 상황이 제일 절대값 작은 경우 
+    if low_index >= high_index:  # low_index가 high_index보다 같은 상황이 제일 절대값 작은 경우 
         return posi_lst[low_index]
     else:
         global 양
@@ -28,7 +27,7 @@ def search(원소, posi_lst, low_index, high_index):
         mid_abs = abs(0-(posi_lst[mid_index] + 원소))
         low_abs = abs(0-(posi_lst[low_index] + 원소))
         high_abs = abs(0-(posi_lst[high_index] + 원소))
-        if mid_abs == 0:
+        if min(mid_abs, low_abs, high_abs) == mid_abs: # 오른쪽으로 
             return posi_lst[mid_index]        
         elif max(mid_abs, low_abs, high_abs) == low_abs: # 오른쪽으로 
             return search(원소, posi_lst, mid_index+1, high_index)
@@ -37,8 +36,9 @@ def search(원소, posi_lst, low_index, high_index):
 
 # print(search(음[0], 양, 0, len(양)-1))
 
-for i in 음:
-    est = (i, search(i, 양, 0, len(양)-1)) 
+for i in values:
+    est = (i, search(i, values[len(음):], 0, N-len(음)-1)) 
+    # print(est)
     if answer == -1:
         answer = est
     else:
