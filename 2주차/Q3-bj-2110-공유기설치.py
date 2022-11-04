@@ -16,6 +16,8 @@ from itertools import combinations
 
 def search(list, 공유기개수C, low, high):  # 인덱스로 안함당
     global 집좌표
+    low = list[0]
+    high = list[-1]
     if (low > high):  # low가 high보다 커지는 상황은 값이 없어서 인덱스가 역전되는 것
         return False
     else:
