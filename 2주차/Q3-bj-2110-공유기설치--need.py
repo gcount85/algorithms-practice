@@ -14,7 +14,7 @@ dis_range = range(1, houses[-1]-houses[0]+1)  # 거리의 범위는 1부터, 젤
 
 def router_bool(houses, distance):
     global C
-    # global 위치
+    # global 위치     # 좌표를 확인하고 싶으면 위치 변수 주석 해제~ ~
     current = houses[0]
     count = 1
     # 위치 = [houses[0]]
