@@ -8,8 +8,7 @@
 # 한 줄에 연속해있는 나무를 모두 절단함 
 # -> H 보다 큰 나무는 H 위의 부분이 잘리고, 낮은 나무는 안 잘림
 # 적어도 M미터의 나무를 가져가기 위해 설정할 수 있는 높이의 최대값
-# 1 ≤ N ≤ 1,000,000
-# 1 ≤ M ≤ 2,000,000,000
+
 # 나무높이는 1,000,000,000보다 작거나 같은 양의 정수 또는 0이다.
 # 절단기 높이는 0이상 정수
 
@@ -23,36 +22,35 @@
 import sys
 
 # 예시
-N = 5 
-M = 20
-height_lst = [4, 42, 40, 26, 46]
+# N = 5 
+# M = 1
+# height_lst = [0,0,27]
 
 # N = 1 
 # M = 500
 # height_lst = [1000000000, 1000000000, 1000000000, 1000000000]
 
-# N = int(sys.stdin.readline())
-# M = int(sys.stdin.readline())
-# height_lst = list(map(int, sys.stdin.readline().split()))
-lst = range(0, max(height_lst))   # H의 범위 (0부터 나무 높이의 최대값)
+N, M = list(map(int, sys.stdin.readline().split()))
+height_lst = list(map(int, sys.stdin.readline().split()))
+H_range = range(0, max(height_lst))   # H의 범위 (0부터 나무 높이의 최대값)
 
 
-def find_H(M, lst, low, high):
+def find_H(M, H_range, low, high):
     global height_lst
     if (low > high):  # low가 high보다 커지는 상황은 값이 없어서 인덱스가 역전되는 것 
-        return 0
+        return False
     else:
         mid = (low + high) // 2
-        H = sum([i-lst[mid] for i in height_lst if i > lst[mid]])
+        H = sum([i-H_range[mid] for i in height_lst if i > H_range[mid]])
         # print(H)
         if H == M:
-            return lst[mid]
+            return H_range[mid]
         elif H < M:
-            return find_H(M, lst, low, mid-1)
+            return find_H(M, H_range, low, mid-1)
         else:
-            return find_H(M, lst, mid+1, high)
+            return find_H(M, H_range, mid+1, high)
 
-print(find_H(M, lst, 0, len(lst)-1))
+print(find_H(M, H_range, 0, len(H_range)-1))
 
     
     
