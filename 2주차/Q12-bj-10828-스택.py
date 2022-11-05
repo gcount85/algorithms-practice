@@ -19,7 +19,7 @@ def stack_structure(input: list):
         if len(stack) == 0:
             print(-1)
         else:
-            print(stack.pop())
+            print(stack.pop()) ## print 씌워주어야 출력 됨
     elif input[0] == "size":
         print(len(stack))
     elif input[0] == "empty":
