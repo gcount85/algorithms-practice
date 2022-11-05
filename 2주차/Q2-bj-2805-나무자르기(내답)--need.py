@@ -29,6 +29,8 @@ import sys
 
 N, M = list(map(int, sys.stdin.readline().split()))
 height_lst = list(map(int, sys.stdin.readline().split()))
+max_height = max(height_lst)
+# height_lst.sort()
 # H_range = range(0, max(height_lst))   # H의 범위 (0부터 나무 높이의 최대값)
 
 def find_H(M, low, high):
@@ -37,6 +39,10 @@ def find_H(M, low, high):
     #     return False
     # else:
     mid = (low + high) // 2
+    # H = 0
+    # for i in height_lst:
+    #     if i > mid:
+    #         H += i-mid
     H = sum([i-mid for i in height_lst if i > mid])
     # print(H)
     if H == M:
@@ -46,7 +52,7 @@ def find_H(M, low, high):
     else:
         return find_H(M, mid+1, high)
 
-print(find_H(M, 0, max(height_lst)-1))
+print(find_H(M, max_height-M, max_height-1))  ## 시작 범위가 0이 아니어도 될듯..?
 
     
     
