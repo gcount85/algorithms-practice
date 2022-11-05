@@ -47,12 +47,10 @@ def stack_structure(input: int):
                 std = input
             stack.append(input)
 
-
 # 입력받기
 N = int(sys.stdin.readline())
-
-for _ in range(N):
-    input = list(map(int, sys.stdin.readline().split()))
-    stack_structure(input)
+input = list(map(int, sys.stdin.readline().split()))
+for i in input:
+    stack_structure(i)
 
 print(" ".join(map(str, tower)))
