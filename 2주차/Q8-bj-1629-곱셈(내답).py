@@ -25,7 +25,7 @@ def div(A, B, C):
     if B == 1:
         return 1
     else:
-        ans = ((A % C) * ((div(A, B-1, C))**B) % C) % C
+        ans = ((A**(B/2) % C) * ((div(A, B-1, C))**B/2) % C) % C
         return ans
 
 print(div(A, B, C))
