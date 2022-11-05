@@ -8,7 +8,8 @@ def stack_structure(stack: list):
         if stack[-1] <= std:
             stack.pop()
         elif stack[-1] > std:
-            count += 1
+            count += 1   
+            std = stack[-1] #이거 해줘야 함!! 
             stack.pop()
     print(count)
 
