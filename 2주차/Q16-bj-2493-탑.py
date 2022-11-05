@@ -37,15 +37,17 @@ def stack_structure(input: int):
     #     tower.append(0)
     #     std = input
     # else:
-    if (len(stack) == 0) or input > std:
+    if (len(stack) == 0) or (input > std):
         stack.append(input)
         tower.append(0)
         std = input
-    else:      # 새로 세워진 탑이 기준 탑보다 작음 
-        tower.append(stack.index(std)+1)
-        if stack[-1] < input:
-            std = input
+    else:      # 새로 세워진 탑이 기준 탑보다 작음 , 이 부분이 문제임..!
         stack.append(input)
+        if std < stack[-2]:
+            std = stack[-2]
+        elif std > stack[-2]:
+            pass
+        tower.append(stack.index(std)+1)
 
 # 입력받기
 N = int(sys.stdin.readline())
