@@ -32,20 +32,20 @@ std = -1
 
 def stack_structure(input: int):
     global std
-    if len(tower) == 0:
+    # if len(tower) == 0:
+    #     stack.append(input)
+    #     tower.append(0)
+    #     std = input
+    # else:
+    if (len(stack) == 0) or input > std:
         stack.append(input)
         tower.append(0)
         std = input
-    else:
-        if input > std:
-            stack.append(input)
-            tower.append(0)
+    else:      # 새로 세워진 탑이 기준 탑보다 작음 
+        tower.append(stack.index(std)+1)
+        if stack[-1] < input:
             std = input
-        else:  # 새로 세워진 탑이 기준 탑보다 작음 
-            tower.append(stack.index(std)+1)
-            if stack[-1] < input:
-                std = input
-            stack.append(input)
+        stack.append(input)
 
 # 입력받기
 N = int(sys.stdin.readline())
