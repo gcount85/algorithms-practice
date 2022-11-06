@@ -37,18 +37,36 @@ def right_bracket(input: str):
                     stack.pop()  
             else:
                 return 0
-    if len(stack) == 0:
-        return "YES"
-    else:
+    if len(stack) != 0:
         return 0
 
-# input = sys.stdin.readline()
-input = '(()[[]])([])'.strip()
-# input = '[][]((])'.strip()
+# input = sys.stdin.readline().strip()
+# input = '(()[[]])([])'.strip()  # 출력; 28
+input = '[][]((])'.strip()    # 출력; 0
+TF = right_bracket(input)
 
-if right_bracket(input) != 0:
-    
-
-
-
+if TF != 0:
+    stack = []
+    answer = 0 
+    temp = 1
+    for i in range(len(input)):
+        if input[i] == "(":
+            stack.append(input[i])
+            temp *= 2
+        elif input[i] == "[":
+            stack.append(input[i])
+            temp *= 3
+        elif input[i] == ")":
+            if input[i-1] == "(":
+                answer += temp
+            stack.pop()
+            temp //= 2          
+        else:   # i == "]"
+            if input[i-1] == "[":
+                answer += temp
+            stack.pop()
+            temp //= 3          
+    print(answer)
+else: 
+    print(TF)
 
