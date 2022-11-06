@@ -30,29 +30,23 @@ stack = []
 tower = []
 std = -1
 
-def stack_structure(input: int):
+def stack_structure(idx: int, input: int):
     global std
-    # if len(tower) == 0:
-    #     stack.append(input)
-    #     tower.append(0)
-    #     std = input
-    # else:
-    if (len(stack) == 0) or (input > std):
-        stack.append(input)
+
+    if (len(stack) == 0) or (input > std[0]):  #1번 탑이거나, 새로 들어오는 탑이 기준 탑보다 클때 
+        stack.append((input, idx+1))
         tower.append(0)
-        std = input
+        std = (input, idx+1)
     else:      # 새로 세워진 탑이 기준 탑보다 작음 , 이 부분이 문제임..!
-        stack.append(input)
-        if std < stack[-2]:
-            std = stack[-2]
-        elif std > stack[-2]:
-            pass
-        tower.append(stack.index(std)+1)
+        if min(std[0], stack[-1][0], input) == input:
+            std = (stack[-1][0], stack[-1][1])
+        stack.append((input, idx+1))
+        tower.append(std[1])  # 기준탑의 인덱스 번호 추가
 
 # 입력받기
 N = int(sys.stdin.readline())
 input = list(map(int, sys.stdin.readline().split()))
-for i in input:
-    stack_structure(i)
+for idx, v in enumerate(input):
+    stack_structure(idx, v)
 
 print(" ".join(map(str, tower)))
