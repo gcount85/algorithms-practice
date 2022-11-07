@@ -1,9 +1,11 @@
 # https://www.acmicpc.net/problem/10845
+# queue 리스트를 매개변수로 주는 것보다 전역 변수로 지정하는게 메모리랑 속도 면에서 더 나았음 
 
 import sys
 
-
-def queue_structure(input: list, queue: list):
+queue = []
+def queue_structure(input: list):
+    global queue
     if input[0] == "push":
         queue.append(input[1])
     elif input[0] == "pop":
@@ -29,7 +31,6 @@ def queue_structure(input: list, queue: list):
         else:
             print(queue[-1])
 
-queue = []
 N = int(sys.stdin.readline())
 for _ in range(N):
-    queue_structure(input := sys.stdin.readline().split(), queue)
+    queue_structure(input := sys.stdin.readline().split())
