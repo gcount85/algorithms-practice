@@ -1,4 +1,5 @@
 # https://www.acmicpc.net/problem/18258
+# 큐2는 deque 모듈(연결 리스트 방식)을 사용하여 속도가 더 빠름
 
 import sys
 from collections import deque

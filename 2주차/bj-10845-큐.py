@@ -1,5 +1,7 @@
 # https://www.acmicpc.net/problem/10845
 # queue 리스트를 매개변수로 주는 것보다 전역 변수로 지정하는게 메모리랑 속도 면에서 더 나았음 
+# 큐1 문제는 파이썬의 기존 리스트 메소드를 사용했음
+
 
 import sys
 
