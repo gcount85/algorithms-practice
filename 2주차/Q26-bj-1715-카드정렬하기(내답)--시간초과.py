@@ -12,14 +12,13 @@ temp = []
 for i in range(2):
     pop_out = heapq.heappop(minheap)
     temp.append(pop_out)
-count = []
-count.append(sum(temp))
+count = sum(temp)
 
 while len(minheap) != 0:
     pop_out = heapq.heappop(minheap)
-    count.append(sum(count)+pop_out)
+    count += (count + pop_out)
 
-print(sum(count))
+print(count)
 
 
 

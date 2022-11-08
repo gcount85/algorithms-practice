@@ -8,9 +8,8 @@ for _ in range(N):
     size = int(sys.stdin.readline())
     heapq.heappush(minheap, size)
 
-
 count = 0
-while len(minheap) != 1:
+while len(minheap) != 1:  ## 계속 최소값끼리만 더할 수 있게 함 
     pop_out1 = heapq.heappop(minheap)
     pop_out2 = heapq.heappop(minheap)
     count += (pop_out1 + pop_out2)
