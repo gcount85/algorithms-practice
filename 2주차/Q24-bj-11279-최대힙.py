@@ -8,15 +8,16 @@ def left(i: int):
 def right(i: int):
     return 2 * i + 2
 
-def max_heapify(A: list, i: int):  # A, 2
-    l = left(i)         # 5
-    r = right(i)        # 6
-    heap_size = len(A)  # 3
-    if (l >= heap_size-1):
+def max_heapify(A: list, i: int):  # A,0
+    l = left(i)         #0 -> 1
+    r = right(i)        #0 -> 2
+    heap_size = len(A)  
+    largest = i
+    if (l > heap_size-1):
         return A
-    if (l >= heap_size-1) and (A[l] > A[i]):
+    if (l == heap_size-1) and (A[l] > A[i]):
         largest = l
-    else: 
+    if (l < heap_size-1):
         if (l <= heap_size) and (A[l] > A[i]):
             largest = l
         else:
@@ -29,15 +30,15 @@ def max_heapify(A: list, i: int):  # A, 2
     else:
         return A
 
-def build_max_heap(A: list):    #[8,2,9]
-    heap_size = len(A)          # 3
+def build_max_heap(A: list):    #[3,1,2,4]
+    heap_size = len(A)          # 4
     if heap_size == 2:
         if A[0] < A[1]:
             A[0], A[1] = A[1], A[0]
         return A
     else:
-        for i in range((heap_size//2)-1, -1, -1):  # 3인 경우, 0만 
-            return max_heapify(A, i)
+        for i in range((heap_size//2)-1, -1, -1):  # 3인 경우, 0만 , 4->1,0
+            max_heapify(A, i)
 
 N = int(sys.stdin.readline())
 A = []
