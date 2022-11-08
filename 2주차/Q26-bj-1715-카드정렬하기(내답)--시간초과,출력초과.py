@@ -8,11 +8,10 @@ for _ in range(N):
     size = int(sys.stdin.readline())
     heapq.heappush(minheap, size)
 
-temp = []
+count = 0
 for i in range(2):
     pop_out = heapq.heappop(minheap)
-    temp.append(pop_out)
-count = sum(temp)
+    count += pop_out
 
 while len(minheap) != 0:
     pop_out = heapq.heappop(minheap)
