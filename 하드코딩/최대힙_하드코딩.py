@@ -8,9 +8,9 @@ def left(i: int):
 def right(i: int):
     return 2 * i + 2
 
-def max_heapify(A: list, i: int):  # A,0
-    l = left(i)         #0 -> 1
-    r = right(i)        #0 -> 2
+def max_heapify(A: list, i: int):   
+    l = left(i)          
+    r = right(i)        
     heap_size = len(A)  
     largest = i
     if (l > heap_size-1):
