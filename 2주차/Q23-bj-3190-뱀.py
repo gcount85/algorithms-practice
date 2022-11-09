@@ -48,17 +48,16 @@ def 뱀(보드크기N, 사과좌표, 방향전환정보):
                 position_que.popleft()
             # 죽는 경우
             pop_cnt += 1
-            갯수 = Counter(position_que)[position_que[-1]]  #-1이 되야함 
-            if (방향 == 'R') and ((position_que[0][1] == 보드크기N) or (갯수 > 1)):
+            지금머리 = position_que[-1]  #-1이 되야함 
+            중복 = Counter(position_que)[position_que[-1]]
+            # 몸통 = position_que[:-1]
+            if 중복 > 1:
                 seconds += pop_cnt
                 return seconds
-            elif (방향 == 'L') and ((position_que[0][1] == 1) or (갯수 > 1)):
+            if (지금머리[0] == 보드크기N+1) or (지금머리[0] == 0):
                 seconds += pop_cnt
                 return seconds
-            elif (방향 == 'U') and ((position_que[0][0] == 1) or (갯수 > 1)):
-                seconds += pop_cnt
-                return seconds
-            elif (방향 == 'D') and ((position_que[0][0] == 보드크기N) or (갯수 > 1)):
+            if (지금머리[1] == 보드크기N+1) or (지금머리[1] == 0):
                 seconds += pop_cnt
                 return seconds
             print(position_que)
