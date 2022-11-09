@@ -54,7 +54,7 @@ def convert_to_postfix(S):
     
     return answer
 
-def calculate(tokens):
+def calculate(tokens):    # 토큰이란 연산자(operator), 피연산자(operand)를 의미함 
     stack = ArrayStack()
     for token in tokens:
         if token == '+':
