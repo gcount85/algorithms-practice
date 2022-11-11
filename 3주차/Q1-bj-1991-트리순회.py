@@ -18,14 +18,7 @@ class BinaryTree:
         '''초기화'''
         self.root = None
     
-    def search(self, key: Any) -> Any:
-        '''키가 key인 노드를 검색 '''
-        p = self.root
-        while True:
-            if p is None:
-                return None
-            if key == p.key:
-                return p.key
+
 
     def add(self, key: Any, left: Node, right: Node) -> bool:
         '''키가 key인 노드를 삽입'''
@@ -52,7 +45,45 @@ class BinaryTree:
         elif right:
             return add_right_node(self.root, key)
 
+    def search(self, key: Any) -> Any:
+        '''키가 key인 노드를 검색 '''
+        p = self.root
+        while True:
+            if p is None:
+                return None
+            if key == p.key:
+                return p
+            elif key < p.key:
+                p = p.left
+            else: 
+                p = p.right
 
+    # 전위순회
+    def preorder(self, node):
+        if node != None:
+            print(node.key, end='') # 노드 방문
+            if node.left:
+                self.preorder(node.left) # 왼쪽 서브 트리 순회
+            if node.right:
+                self.preorder(node.right) # 오른쪽 서브 트리 순회
+
+    # 후위 순회
+    def postorder(self, n):
+        if n != None:
+            if n.left:
+                self.postorder(n.left)
+            if n.right:
+                self.postorder(n.right)
+            print(n.key, end='') # 노드 방문   
+
+    # 중위 순회
+    def inorder(self, n):
+        if n != None:
+            if n.left:
+                self.inorder(n.left)
+            print(n.key, end='') # 노드 방문
+            if n.right:
+                self.inorder(n.right)
 
 N = int(sys.stdin.readline())
 tree = BinaryTree()
@@ -70,7 +101,19 @@ for i in range(N):
     if i == 0:
         tree.root = Node(key, left, right)
     else:
-        tree.add(Node(key), left, right)
-    
+        if tree.search(key):  # 만약에 트리 안에 key 값이 있으면
+            exist = tree.search(key)
+            exist.left = left
+            exist.right = right 
+        else:
+            tree.add(Node(key), left, right)
+
+# 첫째 줄에 전위 순회, 둘째 줄에 중위 순회, 셋째 줄에 후위 순회한 결과를 출력
+tree.preorder(tree.root)
+print('\n')
+tree.inorder(tree.root)
+print('\n')
+tree.postorder(tree.root)
+print('\n')
 
 
