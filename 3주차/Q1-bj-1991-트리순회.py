@@ -27,22 +27,16 @@ class BinaryTree:
             '''node를 루트로 하는 서브트리의 왼쪽 자식에 키가 key인 노드 삽입'''
             if node.left is None:
                 node.left = Node(key, None, None)
-            else:
-                add_left_node(node.left, key)
 
         def add_right_node(node: Node, key: Any) -> None:
             '''node를 루트로 하는 서브트리에 오른쪽 자식에 키가 key인 노드 삽입'''
             if node.right is None:
                 node.right = Node(key, None, None)
-            else:
-                add_right_node(node.right, key)
 
-        if self.root is None:
-            self.root = Node(key, None, None)
-            return True
-        elif left:
+        if left:
             return add_left_node(self.root, key)
-        elif right:
+
+        if right:
             return add_right_node(self.root, key)
 
     def search(self, key: Any) -> Any:
@@ -90,18 +84,23 @@ tree = BinaryTree()
 for i in range(N):
     node = sys.stdin.readline().split()  # [A, B, C]
     key = node[0]
+    left = node[1]
+    right = node[2]
+    # left, right 노드가 점인지 아닌지 확인하기 
     if node[1] != '.':
-        left = Node(node[1])
+        left = Node(left)
     else:
         left = None
     if node[2] != '.':
-        right = Node(node[2])
+        right = Node(right)
     else:
         right = None
+    # 루트 노드 만들기 
     if i == 0:
         tree.root = Node(key, left, right)
     else:
         if tree.search(key):  # 만약에 트리 안에 key 값이 있으면
+            print("FOUND")
             exist = tree.search(key)
             exist.left = left
             exist.right = right 
@@ -109,11 +108,11 @@ for i in range(N):
             tree.add(Node(key), left, right)
 
 # 첫째 줄에 전위 순회, 둘째 줄에 중위 순회, 셋째 줄에 후위 순회한 결과를 출력
-tree.preorder(tree.root)
-print('\n')
-tree.inorder(tree.root)
-print('\n')
-tree.postorder(tree.root)
-print('\n')
+# tree.preorder(tree.root)
+# print('\n')
+# tree.inorder(tree.root)
+# print('\n')
+# tree.postorder(tree.root)
+# print('\n')
 
-
+# print(tree.root.left.left.key)
