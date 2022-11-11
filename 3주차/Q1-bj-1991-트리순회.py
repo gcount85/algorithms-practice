@@ -27,7 +27,7 @@ class BinaryTree:
             if key == p.key:
                 return p.key
 
-    def add(self, key: Any, index: int) -> bool:
+    def add(self, key: Any, left: Node, right: Node) -> bool:
         '''키가 key인 노드를 삽입'''
 
         def add_left_node(node: Node, key: Any) -> None:
@@ -43,28 +43,34 @@ class BinaryTree:
                 node.right = Node(key, None, None)
             else:
                 add_right_node(node.right, key)
-            return True
 
         if self.root is None:
             self.root = Node(key, None, None)
             return True
-        elif index == 1:
+        elif left:
             return add_left_node(self.root, key)
-        elif index == 2:
+        elif right:
             return add_right_node(self.root, key)
 
 
 
 N = int(sys.stdin.readline())
-for _ in range(N):
+tree = BinaryTree()
+for i in range(N):
     node = sys.stdin.readline().split()  # [A, B, C]
-    value = node[0]
+    key = node[0]
     if node[1] != '.':
-        left = node[1]
-        BinaryTree.add(node[0], 1)
+        left = Node(node[1])
+    else:
+        left = None
     if node[2] != '.':
-        right = node[2]
-        BinaryTree.add(node[0], 2)
+        right = Node(node[2])
+    else:
+        right = None
+    if i == 0:
+        tree.root = Node(key, left, right)
+    else:
+        tree.add(Node(key), left, right)
     
 
 
