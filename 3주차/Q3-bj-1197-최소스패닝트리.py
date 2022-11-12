@@ -14,26 +14,22 @@ W = [list(map(int, sys.stdin.readline().split())) for _ in range(E)]
 #      [1, 3, 3]]
 
 # 가중치의 합 
-s_edges = []
-bridges = []
-covered = [1]
 uncovered = list(range(2,V+1))
 total = 0
 
 while len(uncovered) != 0:
     tmp = 2147483648
     for i in W:
-        if (i[0] in covered) and (i[1] in uncovered):
+        if (i[0] not in uncovered) and (i[1] in uncovered):
             if tmp > i[2]:
                 tmp = i[2]
                 tmp_edge = i  # 최소가중치를 가진 엣지
     total += tmp_edge[2]
-    covered.append(tmp_edge[1])
-    s_edges.append(tmp_edge)
     W.remove(tmp_edge)
     uncovered.remove(tmp_edge[1])
 
-
+# 최소 스패닝 트리의 가중치를 출력
+print(total)
 
 
 '''슈도코드
@@ -50,8 +46,7 @@ return 가중치의 합
 '''
 
 
-# 최소 스패닝 트리의 가중치를 출력
-print(total)
+
 
 
 
