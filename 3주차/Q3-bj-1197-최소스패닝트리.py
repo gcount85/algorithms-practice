@@ -7,35 +7,31 @@ W = [list(map(int, sys.stdin.readline().split())) for _ in range(E)]
 노드는 1번부터 V번까지 존재 
 '''
 
-V = 3  # 노드개수 
-E = 3  # 엣지갯수
-W = [[1, 2, 1],
-     [2, 3, 2],
-     [1, 3, 3]]
+# V = 3  # 노드개수 
+# E = 3  # 엣지갯수
+# W = [[1, 2, 1],
+#      [2, 3, 2],
+#      [1, 3, 3]]
 
 # 가중치의 합 
 s_edges = []
 bridges = []
 covered = [1]
-uncovered = list(range(2,3+1))
+uncovered = list(range(2,V+1))
+total = 0
 
-while len(covered) != V:
+while len(uncovered) != 0:
     tmp = 2147483648
-    print(tmp)  
     for i in W:
         if (i[0] in covered) and (i[1] in uncovered):
             if tmp > i[2]:
                 tmp = i[2]
                 tmp_edge = i  # 최소가중치를 가진 엣지
+    total += tmp_edge[2]
     covered.append(tmp_edge[1])
     s_edges.append(tmp_edge)
     W.remove(tmp_edge)
     uncovered.remove(tmp_edge[1])
-
-total = 0
-for i in s_edges:
-    total += i[2]
-
 
 
 
