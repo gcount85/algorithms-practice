@@ -6,6 +6,7 @@ while True:
         nodes.append(int(sys.stdin.readline()))
     except:
         break
+    
 # 루트 노드 만들기 
 root = nodes[0]
 root_lefts = []
