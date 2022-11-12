@@ -17,8 +17,6 @@ class BinaryTree:
     def __init__(self):
         '''초기화'''
         self.root = None
-    
-
 
     def add(self, key: Any, left: Node, right: Node) -> bool:
         '''키가 key인 노드를 삽입'''
