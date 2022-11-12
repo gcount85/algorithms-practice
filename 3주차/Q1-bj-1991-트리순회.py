@@ -108,11 +108,11 @@ for i in range(N):
             tree.add(Node(key), left, right)
 
 # 첫째 줄에 전위 순회, 둘째 줄에 중위 순회, 셋째 줄에 후위 순회한 결과를 출력
-# tree.preorder(tree.root)
-# print('\n')
-# tree.inorder(tree.root)
-# print('\n')
-# tree.postorder(tree.root)
-# print('\n')
+tree.preorder(tree.root)
+print('\n')
+tree.inorder(tree.root)
+print('\n')
+tree.postorder(tree.root)
+print('\n')
 
-# print(tree.root.left.left.key)
+print(a:=tree.root.left.left.key)
