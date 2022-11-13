@@ -1,9 +1,9 @@
 import sys
 
 V, E = map(int, sys.stdin.readline().split())
-edges = [[] for _ in range(E)]
+edges = [[] for _ in range(V)]
 for _ in range(E):
-    src, dst, w = map(int, sys.stdin.readline().split()) 
+    src, dst, w = map(int, sys.stdin.readline().split())
     edges[src].append((dst, w))   
 
 # print(edges)
@@ -32,12 +32,22 @@ total = 0
 while len(chk) != V:
     tmp = 2147483648
     for i, v in enumerate(edges):      # i = 0,1,2   #v = [], [(2, 1), (3, 3)], [(3, 2)]
-        if (i > 0) and (covered[i-1] != [] and v != []):  # 해당 노드가 커버되어있고, 그 노드에서 다른 노드로 가는 엣지들이 존재할 때
-            for j in v:  # [(2, 1), (3, 3)]
-                if (covered[j[0]-1] == []) and (tmp > j[1]):
-                    tmp = j[1]
-                    mini_edge = j  # 최소가중치를 가진 엣지의 (dst, 가중치)
-                    src = i
+        if (i > 0) and (v != []):
+            if covered[i-1] != []:  # 해당 노드가 커버되어있고, 그 노드에서 다른 노드로 가는 엣지들이 존재할 때
+                for j in v:  # [(2, 1), (3, 3)]
+                    if (covered[j[0]-1] == []) and (tmp > j[1]):
+                        tmp = j[1]
+                        mini_edge = j  # 최소가중치를 가진 엣지의 (dst, 가중치)
+                        src = i
+            else:
+                for j in v:  # [(2, 1), (3, 3)]
+                    if (covered[j[0]-1] != []) and (tmp > j[1]):
+                        tmp = j[1]
+                        mini_edge = j  # 최소가중치를 가진 엣지의 (dst, 가중치)
+                        src = i
+
+
+
     total += mini_edge[1]
     covered[src-1] = src    
     dst = mini_edge[0]
