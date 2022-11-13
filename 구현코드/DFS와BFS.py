@@ -3,6 +3,7 @@
 # 탐색을 시작할 정점의 번호 V
 
 import sys
+import heapq
 
 N, M, V = map(int, sys.stdin.readline().split())
 edges = [[] for _ in range(N+1)]
@@ -36,13 +37,19 @@ def bfs(s, edges):
 parent = {V: None}          # 부모 노드를 지정해줌으로써 이미 방문했는지 아닌지 판별
 def dfs_visit(s, edges):
     global parent
-    print(s, end=' ')
     for v in edges[s]:
         if v not in parent:     
             parent[v] = s
             dfs_visit(v, edges)
 
+# dfs 함수는 단절된 그래프, 강하게 연결된 그래프가 아닌 경우에 시작 노드를 바꿔 모든 그래프를 탐색하기 위함
+def dfs(N, edges):
+    parent = {}
+    for s in range(1,N+1):
+        if s not in parent:
+            parent[s] = None
+            dfs_visit(N, edges)
+
 bfs(V, edges)
-print('')
-dfs_visit(V, edges)
+    
 
