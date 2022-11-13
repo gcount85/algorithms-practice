@@ -12,6 +12,12 @@ W = [list(map(int, sys.stdin.readline().split())) for _ in range(E)]
 # W = [[1, 2, 1],
 #      [2, 3, 2],
 #      [1, 3, 3]]
+# V = 3  # 노드개수 
+# E = 4  # 엣지갯수
+# W = [[1, 2, 1],
+#      [2, 1, 1],
+#      [2, 3, 3],
+#      [3, 1, 3]]
 
 # 가중치의 합 
 uncovered = list(range(2,V+1))
@@ -20,17 +26,21 @@ total = 0
 while len(uncovered) != 0:
     tmp = 2147483648
     for v in W:
-        if ((v[0] not in uncovered) and (v[1] in uncovered)) or ((v[1] not in uncovered) and (v[0] in uncovered)):
-            if (tmp >= v[2]):
-                tmp = v[2]
-                mini_edge = v  # 최소가중치를 가진 엣지
+        if v[0] != -1:
+            if ((v[0] not in uncovered) and (v[1] in uncovered)) or ((v[1] not in uncovered) and (v[0] in uncovered)):
+                if (tmp >= v[2]):
+                    tmp = v[2]
+                    mini_edge = v  # 최소가중치를 가진 엣지
     total += mini_edge[2]
     src = mini_edge[0]
     dst = mini_edge[1]
     for j in W:
         if (j[0] == src and j[1] == dst) or (j[0] == dst and j[1] == src):
-            W.remove(j)
-    uncovered.remove(dst)
+            j[0] = -1
+    if dst in uncovered:
+        uncovered.remove(dst)
+    if src in uncovered:
+        uncovered.remove(src)
 
 # 최소 스패닝 트리의 가중치를 출력
 print(total)
