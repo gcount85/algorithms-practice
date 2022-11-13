@@ -8,11 +8,11 @@ N, M, V = map(int, sys.stdin.readline().split())
 edges = [[] for _ in range(N+1)]
 for _ in range(M):
     src, dst = map(int, sys.stdin.readline().split())
-    edges[src].append(dst)
-    edges[src].sort()
-print(edges)
-
-# 첫째 줄에 DFS를 수행한 결과를, 그 다음 줄에는 BFS를 수행한 결과
+    edges[src].append(dst)  
+    edges[dst].append(src)  # 양방향이기에 이 라인이 없으면 오답
+    edges[src].sort()       # 숫자가 적은 노드부터 방문해야해서 오름차순 정렬함
+    edges[dst].sort()
+# print(edges)
 
 def bfs(s, edges):
     level = {s: 0}      # 단계(level)은 몇 스텝만에 시작노드에서 해당 노드로 갈 수 있는지를 의미
@@ -32,7 +32,6 @@ def bfs(s, edges):
         frontier = nexts    # 추가 된 다음 노드들을 frontier에 올림
         i += 1
 
-
 parent = {V: None}          # 부모 노드를 지정해줌으로써 이미 방문했는지 아닌지 판별
 def dfs_visit(s, edges):
     global parent
@@ -42,7 +41,7 @@ def dfs_visit(s, edges):
             parent[v] = s
             dfs_visit(v, edges)
 
-bfs(V, edges)
-print('')
 dfs_visit(V, edges)
+print('')
+bfs(V, edges)
 

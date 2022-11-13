@@ -9,8 +9,10 @@ N, M, V = map(int, sys.stdin.readline().split())
 edges = [[] for _ in range(N+1)]
 for _ in range(M):
     src, dst = map(int, sys.stdin.readline().split())
-    edges[src].append(dst)
-    edges[src].sort()
+    edges[src].append(dst)  
+    edges[dst].append(src)  # 양방향이기에 이 라인이 없으면 오답
+    edges[src].sort()       # 숫자가 적은 노드부터 방문해야해서 오름차순 정렬함
+    edges[dst].sort()
 print(edges)
 
 # 첫째 줄에 DFS를 수행한 결과를, 그 다음 줄에는 BFS를 수행한 결과
