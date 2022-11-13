@@ -1,12 +1,11 @@
 import sys
 
 V, E = map(int, sys.stdin.readline().split())
-edges = [[] for _ in range(V)]
+edges = [[] for _ in range(V+1)]
 for _ in range(E):
     src, dst, w = map(int, sys.stdin.readline().split())
     edges[src].append((dst, w))   
-
-# print(edges)
+    edges[dst].append((src, w))   
 
 '''
 노드는 1번부터 V번까지 존재 
@@ -25,34 +24,20 @@ for _ in range(E):
 
 # 가중치의 합 
 covered = [1] + [[] for _ in range(V-1)]
-# print(covered)
 chk = set()
 total = 0
 
-while len(chk) != V:
+while len(chk) != V-1:
     tmp = 2147483648
     for i, v in enumerate(edges):      # i = 0,1,2   #v = [], [(2, 1), (3, 3)], [(3, 2)]
-        if (i > 0) and (v != []):
-            if covered[i-1] != []:  # 해당 노드가 커버되어있고, 그 노드에서 다른 노드로 가는 엣지들이 존재할 때
-                for j in v:  # [(2, 1), (3, 3)]
-                    if (covered[j[0]-1] == []) and (tmp > j[1]):
-                        tmp = j[1]
-                        mini_edge = j  # 최소가중치를 가진 엣지의 (dst, 가중치)
-                        src = i
-            else:
-                for j in v:  # [(2, 1), (3, 3)]
-                    if (covered[j[0]-1] != []) and (tmp > j[1]):
-                        tmp = j[1]
-                        mini_edge = j  # 최소가중치를 가진 엣지의 (dst, 가중치)
-                        src = i
-
-
-
+        if (i > 0) and (v != []) and (covered[i-1] != []): # 해당 노드가 커버되어있고, 그 노드에서 다른 노드로 가는 엣지들이 존재할 때
+            for j in v:  # [(2, 1), (3, 3)]
+                if (covered[j[0]-1] == []) and (tmp > j[1]):
+                    tmp = j[1]
+                    mini_edge = j  # 최소가중치를 가진 엣지의 (dst, 가중치)
     total += mini_edge[1]
-    covered[src-1] = src    
     dst = mini_edge[0]
     covered[dst-1] = dst 
-    chk.add(src)
     chk.add(dst)
 # 최소 스패닝 트리의 가중치를 출력
 print(total)
