@@ -1,9 +1,9 @@
+# https://www.acmicpc.net/problem/1260 이 문제를 참고함
 # 첫째 줄에 정점의 개수 N(1 ≤ N ≤ 1,000),
 # 간선의 개수 M(1 ≤ M ≤ 10,000), 
 # 탐색을 시작할 정점의 번호 V
 
 import sys
-import heapq
 
 N, M, V = map(int, sys.stdin.readline().split())
 edges = [[] for _ in range(N+1)]
@@ -11,11 +11,10 @@ for _ in range(M):
     src, dst = map(int, sys.stdin.readline().split())
     edges[src].append(dst)  
     edges[dst].append(src)  # 양방향이기에 이 라인이 없으면 오답
-    edges[src].sort()       # 숫자가 적은 노드부터 방문해야해서 오름차순 정렬함
-    edges[dst].sort()
-print(edges)
 
-# 첫째 줄에 DFS를 수행한 결과를, 그 다음 줄에는 BFS를 수행한 결과
+for i in edges:    # 숫자가 적은 노드부터 방문해야해서 오름차순 정렬함
+    if i != []:
+        i.sort()
 
 def bfs(s, edges):
     level = {s: 0}      # 단계(level)은 몇 스텝만에 시작노드에서 해당 노드로 갈 수 있는지를 의미
@@ -36,21 +35,19 @@ def bfs(s, edges):
         i += 1
 
 
-parent = {V: None}          # 부모 노드를 지정해줌으로써 이미 방문했는지 아닌지 판별
+parent = {}          # 부모 노드를 지정해줌으로써 이미 방문했는지 아닌지 판별
 def dfs_visit(s, edges):
-    global parent
-    for v in edges[s]:
-        if v not in parent:     
-            parent[v] = s
-            dfs_visit(v, edges)
+    for v in edges[s]:      # 시작 노드의 목적지 노드들에 대해서
+        if v not in parent: # 목적지 노드의 부모노드가 지정되지 않았다면(이전에 방문 안 했으면)
+            parent[v] = s   # 시작 노드를 해당 노드의 부모노드로 지정 
+            dfs_visit(v, edges) # 해당 목적지 노드를 대상으로 재귀
 
 # dfs 함수는 단절된 그래프, 강하게 연결된 그래프가 아닌 경우에 시작 노드를 바꿔 모든 그래프를 탐색하기 위함
 def dfs(N, edges):
-    parent = {}
-    for s in range(1,N+1):
-        if s not in parent:
-            parent[s] = None
-            dfs_visit(N, edges)
+    for s in range(1,N+1):  # 모든 노드들에 대해 
+        if s not in parent: # 이미 방문된 노드가 아니라면
+            parent[s] = None   # '부모 없음'을 뜻하는 None으로 저장; dfs_visit을 시작할 노드이기 때문
+            dfs_visit(s, edges)
 
 bfs(V, edges)
     
