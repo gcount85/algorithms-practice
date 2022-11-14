@@ -1,4 +1,6 @@
 # https://www.acmicpc.net/problem/14888
+# 13%에서 틀림 
+
 
 import sys
 from itertools import permutations

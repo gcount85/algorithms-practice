@@ -23,7 +23,7 @@ for j, v in enumerate(operator):     #2, 1, 1, 1
 최대 = -100000000
 
 def dfs_visit(idx: int, i: tuple):        # i = ('+', '/', '*', '-', '+')
-    global tmp, tmp, A
+    global tmp, A
     if idx == N-1:
         return
     else:
