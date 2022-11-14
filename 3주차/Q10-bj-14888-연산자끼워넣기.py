@@ -20,7 +20,7 @@ for j, v in enumerate(operator):     #2, 1, 1, 1
 
 연산자순열 = set(list(permutations(edges)))
 최소 = 1000000000
-최대 = -1000000000
+최대 = -100000000
 
 def dfs_visit(idx: int, i: tuple):        # i = ('+', '/', '*', '-', '+')
     global tmp_max, tmp_min, A
@@ -31,16 +31,12 @@ def dfs_visit(idx: int, i: tuple):        # i = ('+', '/', '*', '-', '+')
             tmp_min = eval(i[idx].join([str(A[idx]), str(A[idx+1])]))
             tmp_max = eval(i[idx].join([str(A[idx]), str(A[idx+1])]))
         else:
-            if i[idx] == '//':
-                if tmp_max < 0:
-                    tmp_max = -eval(i[idx].join([str(-tmp_max), str(A[idx+1])]))
-                    tmp_min = eval(i[idx].join([str(tmp_min), str(A[idx+1])]))
-                if tmp_min < 0:
-                    tmp_min = -eval(i[idx].join([str(-tmp_min), str(A[idx+1])]))
-                    tmp_max = eval(i[idx].join([str(tmp_max), str(A[idx+1])]))
-                else:
-                    tmp_min = eval(i[idx].join([str(tmp_min), str(A[idx+1])]))
-                    tmp_max = eval(i[idx].join([str(tmp_max), str(A[idx+1])]))
+            if i[idx] == '//' and tmp_max < 0:
+                tmp_max = -eval(i[idx].join([str(-tmp_max), str(A[idx+1])]))
+                tmp_min = eval(i[idx].join([str(tmp_min), str(A[idx+1])]))
+            if i[idx] == '//' and tmp_min < 0:
+                tmp_min = -eval(i[idx].join([str(-tmp_min), str(A[idx+1])]))
+                tmp_max = eval(i[idx].join([str(tmp_max), str(A[idx+1])]))
             else:
                 tmp_min = eval(i[idx].join([str(tmp_min), str(A[idx+1])]))
                 tmp_max = eval(i[idx].join([str(tmp_max), str(A[idx+1])]))
@@ -56,7 +52,7 @@ for i in 연산자순열:
     if tmp_max > 최대:
         최대 = tmp_max
 
-print(최대)
-print(최소)
+print(int(최대))
+print(int(최소))
 
 
