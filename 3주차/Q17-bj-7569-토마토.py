@@ -17,16 +17,12 @@ for i in range(H):
             elif rt == -1:
                 nn += 1         # -1의 갯수 알아내기 → 최종적으로 익지 못한 토마토 알아내기 위함
     tmt_boxes.append(box)
-# print("토마토 박스들: ", tmt_boxes)
-# print("익은 토마토 위치: ", ripe_tmt)
 
 
 def bfs(s: list, tmt_boxes: list):
     level = {}      # 단계(level)은 몇 스텝만에 시작노드에서 해당 노드로 갈 수 있는지를 의미
-    parent = {}
     for rt in s:
         level[rt] = 0      # 단계(level)은 몇 스텝만에 시작노드에서 해당 노드로 갈 수 있는지를 의미
-        parent[rt] = None  # 특정 노드의 부모 노드(전 단계에 있던 노드)를 가리킴
     i = 1               # 단계를 나타낼 i (다음 단계를 탐색할 때마다 +1)
     frontier = s      # frontier는 각 레벨에서 탐색하게 될 노드(단계마다 바뀜)
     while frontier:     # 탐색할 노드가 존재하지 않을 때까지
@@ -38,7 +34,6 @@ def bfs(s: list, tmt_boxes: list):
                 if (0 <= v[0] <= H-1) and (0 <= v[1] <= N-1) and (0 <= v[2] <= M-1):  # 목적지 노드의 조건
                     if (v not in level) and (tmt_boxes[v[0]][v[1]][v[2]] == 0):
                         level[v] = i    # v의 레벨은 i단계
-                        parent[v] = u   # v의 부모 노드는 uㄴ
                         nexts.append(v)  # 탐색할 다음 노드에 v를 추가
         frontier = nexts    # 추가 된 다음 노드들을 frontier에 올림
         i += 1
