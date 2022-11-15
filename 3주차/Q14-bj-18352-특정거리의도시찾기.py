@@ -21,6 +21,8 @@ def bfs(s, edges):
                     level[v] = i    # v의 레벨은 i단계
                     parent[v] = u   # v의 부모 노드는 u
                     nexts.append(v) # 탐색할 다음 노드에 v를 추가 
+                # if (v in level) and (level[v] > i):   → 이 두 라인 없어도 됨! BFS는 항상 최단 거리를 보장하는 듯
+                #     level[v] = i
         frontier = nexts    # 추가 된 다음 노드들을 frontier에 올림
         i += 1
     # print(level)
@@ -31,4 +33,4 @@ def bfs(s, edges):
     else:
         print(-1)
 
-bfs(1, edges)
+bfs(X, edges)   # X를 1로 넣어서 계속 틀렸었다...ㅡㅡ 문제좀 잘 읽자
