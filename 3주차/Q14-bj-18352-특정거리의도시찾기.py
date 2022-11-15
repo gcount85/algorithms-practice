@@ -10,7 +10,6 @@ for _ in range(M):
 
 def bfs(s, edges):
     level = {s: 0}      # 단계(level)은 몇 스텝만에 시작노드에서 해당 노드로 갈 수 있는지를 의미
-    parent = {s: None}  # 특정 노드의 부모 노드(전 단계에 있던 노드)를 가리킴
     i = 1               # 단계를 나타낼 i (다음 단계를 탐색할 때마다 +1)
     frontier = [s]      # frontier는 각 레벨에서 탐색하게 될 노드(단계마다 바뀜)
     while frontier:     # 탐색할 노드가 존재하지 않을 때까지
@@ -19,7 +18,6 @@ def bfs(s, edges):
             for v in edges[u]:      
                 if (v not in level):  
                     level[v] = i    # v의 레벨은 i단계
-                    parent[v] = u   # v의 부모 노드는 u
                     nexts.append(v) # 탐색할 다음 노드에 v를 추가 
                 # if (v in level) and (level[v] > i):   → 이 두 라인 없어도 됨! BFS는 항상 최단 거리를 보장하는 듯
                 #     level[v] = i
