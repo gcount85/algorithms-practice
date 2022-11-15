@@ -9,7 +9,6 @@ edges = [[] for _ in range(M+1)]
 for _ in range(M):
     src, dst, weight = map(int, sys.stdin.readline().split())
     edges[src].append((dst, weight))  
-    edges[dst].append((src, weight))  
 A, B = map(int, sys.stdin.readline().split())  # 출발지점, 도착지점
 
 def bfs(s, edges):
