@@ -32,8 +32,9 @@ def bfs(s, edges):
                     nexts.append(v) # 탐색할 다음 노드에 v를 추가 
                 if (v[0] in level) and (weight[v[0]] > weight[u[0]] + v[1]):
                     weight[v[0]] = weight[u[0]] + v[1]
+                    nexts.append(v) # 탐색할 다음 노드에 v를 추가 ## 이 라인 추가 안해서 계속 틀림 ㅠㅠㅠㅠㅠ
         frontier = nexts    # 추가 된 다음 노드들을 frontier에 올림
         i += 1
-    print(weight)
+    print(weight[B])
 
 bfs((A,0), edges)  
