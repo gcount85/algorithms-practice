@@ -5,7 +5,7 @@ import sys
 
 N = int(sys.stdin.readline())  # 도시의개수
 M = int(sys.stdin.readline())  # 버스의개수
-edges = [[] for _ in range(M+1)]
+edges = [[] for _ in range(N+1)]
 for _ in range(M):
     src, dst, weight = map(int, sys.stdin.readline().split())
     edges[src].append((dst, weight))  
