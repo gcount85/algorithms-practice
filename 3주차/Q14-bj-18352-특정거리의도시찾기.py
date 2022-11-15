@@ -19,7 +19,7 @@ def bfs(s, edges):
                 if (v not in level):  
                     level[v] = i    # v의 레벨은 i단계
                     nexts.append(v) # 탐색할 다음 노드에 v를 추가 
-                # if (v in level) and (level[v] > i):   → 이 두 라인 없어도 됨! BFS는 항상 최단 거리를 보장하는 듯
+                # if (v in level) and (level[v] > i):   → 이 두 라인 없어도 됨! BFS는 항상 최단 거리를 보장
                 #     level[v] = i
         frontier = nexts    # 추가 된 다음 노드들을 frontier에 올림
         i += 1

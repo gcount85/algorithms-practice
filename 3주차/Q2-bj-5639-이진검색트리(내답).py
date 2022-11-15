@@ -42,18 +42,4 @@ for A, B in zip(root_rights[idx1-1::-1], root_rights_right):
 print(root)
 
 
-# print(root)
-# print(root_lefts)
-# print(root_lefts_right)
-# print(root_rights)
-# print(root_rights_right)
-
-# print(root_lefts[idx0-1::-1])
-
-# while True:
-#     for A, B in root_lefts, root_rights:
-#         if A != B:
-#             print
-
-
 
