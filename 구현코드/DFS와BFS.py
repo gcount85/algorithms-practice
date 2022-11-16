@@ -50,5 +50,6 @@ def dfs(N, edges):
             dfs_visit(s, edges)
 
 bfs(V, edges)
+dfs(V, edges)
     
 
