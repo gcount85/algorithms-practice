@@ -8,7 +8,7 @@ def fib(n):
     if n <= 2:
         f = 1
     else:
-        f = fib(n-1) + fib(n-2)
+        f = fib(n-1) + fib(n-2)   # return 없으면 여기서 None type 더하기 에러가 남
     memo[n] = f
     return f
 
