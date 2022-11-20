@@ -17,11 +17,10 @@ for _ in range(T):
         for k in table.keys():   
             if k == c:          # 동전과 돈의 가치가 같을때, 경우의 수는 하나밖에 없음
                 table[k] += 1
-            elif k > c:         # 돈의 가치가 동전의 가치보다 클 때, 동전의 가치만큼 뺀 값의 경우의 수를 더함
+            elif k > c:         # 돈의 가치가 동전의 가치보다 클 때, 미리 구한 경우의 수에 동전의 가치만큼 뺀 값의 경우의 수를 더함
                 table[k] += table[k-c] 
+            # print(f"동전이 {c}원일 때, 돈이 {k}원일 때, 경우의수 {table}")
+                
     print(table[M])
-
-
-
 
 
