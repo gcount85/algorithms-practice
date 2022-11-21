@@ -5,22 +5,15 @@ import sys
 A = sys.stdin.readline().rstrip()
 B = sys.stdin.readline().rstrip()
 
-# ACAYKP
-# CAPCA
 
-LCS = dict.fromkeys(range(len(A)),None)  # key; 0 ~ 5
+LCS = [[0] * (len(B)+1) for _ in range(len(A)+1)]
 
-for i in LCS.keys():
-    if i == 0:
-        if A[0] == B[0]:
-            LCS[0] = (B[0], 1)
-        else:
-            LCS[0] = ("", 0)
-    elif B[i] in A[LCS[i-1][1]:i+1]:
-        LCS[i] = (LCS[i-1][0] + B[i], A[LCS[i-1][1]:i+1].index(B[i])+1)
-    else: 
-        LCS[i] = LCS[i-1]
+for i in range(1, len(A)+1):
+    for j in range(1, len(B)+1):
+        if A[i-1] == B[j-1]:    # A와 B의 끝 문자가 같으면 이전의 LCS에서 +1
+            LCS[i][j] = LCS[i-1][j-1] + 1
+        else:                   # A와 B의 끝 문자가 다른 경우 DP 테이블에서 위칸, 왼쪽칸의 값 중 max
+            LCS[i][j] = max(LCS[i-1][j], LCS[i][j-1])
         
-print(len(LCS[len(A)-1][0]))
-# print(LCS[len(A)-1])
-
+print(LCS[-1][-1]) 
+ 
