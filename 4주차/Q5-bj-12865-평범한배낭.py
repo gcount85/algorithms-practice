@@ -14,9 +14,6 @@ for _ in range(N):
 
 
 
-
-
-
 # 재귀버전 → 메모리, 시간 초과 나는 듯..
 
 def knapsack2(i, K, W, P):		# 인덱스, 무게, 무게 리스트, 가치 리스트 
@@ -35,7 +32,7 @@ print(profit)
 
 
 # 반복문 버전
-# https://www.acmicpc.net/board/view/93599
+# 참고: https://www.acmicpc.net/board/view/93599
 
 sum_value = [0]*(K+1)
 items = []
