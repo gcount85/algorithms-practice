@@ -2,10 +2,23 @@
 
 import sys
 
-N = map(int, sys.stdin.readline().split())
-matrix = []
+N = int(sys.stdin.readline())
+M = [0]
 for _ in range(N):
     r, c = map(int, sys.stdin.readline().split())
-    matrix.append((r, c))
+    M.append((r, c))
 
-DP = [[0] * ]  # 히히히 화이팅 
+# print(M)
+
+DP = [[0] * (N+1) for _ in range(N+1)]  
+
+itvl = 1
+for _ in range(N-1):
+    for i in range(1, N+1):
+        j = i + itvl
+        if j < N+1:
+            DP[i][j] = min(DP[i][j-1] + (M[i][0] * M[j][0] * M[j][1]),
+                           DP[i+1][j] + (M[i][0] * M[j-1][0] * M[j][1]))
+    itvl += 1
+
+print(DP[1][N])
