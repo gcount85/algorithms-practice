@@ -1,5 +1,7 @@
 # https://www.acmicpc.net/problem/1541
 
+# 나의 버전
+
 import sys
 
 input = sys.stdin.readline().rstrip().split("-")
@@ -19,6 +21,24 @@ while len(input) != 0:
     a = sum(list(map(int, input[0].split("+"))))
     ans -= a
     del input[0]
+         
+print(ans)
+
+
+# 버전 2
+
+import sys
+
+input = sys.stdin.readline().rstrip().split("-")
+ans = 0
+
+for i in input[0].split("+"):
+    ans += int(i)
+
+for i in input[1:]:
+    for j in i.split("+"):
+        ans -= int(j)
+
          
 print(ans)
 
