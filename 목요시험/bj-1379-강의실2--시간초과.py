@@ -1,6 +1,7 @@
 # https://www.acmicpc.net/problem/1379 강의실2
-
 # 최대한 적은 수의 강의실을 사용하여 모든 강의가 이루어지게 하고 싶다.
+
+
 import sys
 import heapq
 
@@ -32,6 +33,7 @@ while schedule1:
 
 
 print(ans[-1][0]) # 강의실 개수 -> 이건 맞게 나오는데 
-print(ans)
+for k in ans:
+    print(k[0])
 
 
