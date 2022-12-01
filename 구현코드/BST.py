@@ -55,5 +55,22 @@ class BinaryTree:
         # elif index == 2:
         #     return add_right_node(self.root, key, value)
 
+# 파이썬 rotateRight
 
-
+def rotate_right(self, z):   # self라는 트리에 z를 기준으로 로테이션
+	if not z: return
+	x = z.left
+	if x == None: return   # z자리에 올라올 x가 없다
+	b = x.right
+	x.parent = z.parent
+	if z.parent:   # Z가 루트가 아니면
+		if z.parent.left == z:
+			z.parent.left = x
+		else: 
+			z.parent.right = x
+	x.right = z
+	z.parent = x
+	z.left = b
+	if b: b.parent = z
+	if self.root == z:
+		self.root = x
