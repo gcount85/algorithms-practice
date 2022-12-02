@@ -9,48 +9,34 @@
 
 import sys
 
-def prime_list(n):
-    # 에라토스테네스의 체 초기화: n개 요소에 True 설정(소수로 간주)
-    sieve = [True] * n
+sieve = [True] * 10000
+# n의 최대 약수가 sqrt(n) 이하이므로 i=sqrt(n)까지 검사
+min = 9998
+m = int(100000 ** 0.5)
+for i in range(2, m + 1):
+    if sieve[i] == True:           # i가 소수인 경우
+        for j in range(i+i, 10000, i): # i이후 i의 배수들을 False 판정
+            sieve[j] = False
 
-    # n의 최대 약수가 sqrt(n) 이하이므로 i=sqrt(n)까지 검사
-    m = int(n ** 0.5)
-    for i in range(2, m + 1):
-        if sieve[i] == True:           # i가 소수인 경우
-            for j in range(i+i, n, i): # i이후 i의 배수들을 False 판정
-                sieve[j] = False
-
-    # 소수 목록 산출
-    return [i for i in range(2, n) if sieve[i] == True]
-
-
-
+# print(sosu)
 T = int(sys.stdin.readline())
 for _ in range(T):
     n = int(sys.stdin.readline())
-    sosu = [2, 3]
-    # sosu = [num for num in range(3, n, 2) for i in range(2, int(math.sqrt(num))+1) if num % i != 0]
-    for num in range(5, n, 2):
-        count = 0
-        if num % 9 == 0:
-            continue
-        for i in range(2, int(num**0.5)+1):
-            if num % i == 0: 
-                count += 1
-        if count == 0:
-            sosu.append(num)
-    min = 9998
     answer = None
-    for i in sosu[::-1]:
-        for j in sosu[::-1]:
-            if i+j != n:
+    for i, v in enumerate(sieve[2:n+1]):
+        for j, k in enumerate(sieve[2:n+1]):
+            if v == False or k == False:
+                continue
+            if i > j:
+                continue
+            if i + j != n:
                 continue
             if i - j == 0:
-                answer = (j, i)
+                answer = (i, i)
                 break
-            if (i > j) and (i - j < min):
+            if i - j < min:
                 min = i - j
-                answer = (j, i)
+                answer = (i, j)
     print(answer[0], answer[1])
 
 
