@@ -15,32 +15,30 @@ import sys
 # 	안되면 return;
 # 	되면 return 열 인덱스 반환 (원래행+1, 열)
 
-def promising(r):               #탐색행번호    ## 0~i-1까지의 col과 각각 비교해야 함!! 
-    for i in range(r):          #0부터 r-1까지의 행번호
-        if array[r] == array[i]:   # 같은 열이면(수직이면)
+def promising(r):        # 탐색행번호    ## 0~i-1까지의 col과 각각 비교해야 함!! 
+    for i in range(r):   # r 행 윗부분 탐색
+        if array[r] == array[i]: # 같은 열에 놓인 퀸이 있으면
             return False
-        elif (abs(r-i)) == (abs(array[r]-array[i])): ## 대각선이면
+        elif (abs(r-i)) == (abs(array[r]-array[i])): # 대각선이면
             return False
     return True
 
-def queen(r):  #행, c
-    global c
-    if r == N:   #행번호가 끝번호면
-        c += 1
+def queen(r):  #행
+    global count
+    if r == N:   # 마지막 행에 도달하면 경우의 수 +1 
+        count += 1
         return
-    else:
-        for col in range(N):
-            array[r] = col
-            if promising(r):   #이거 트루로 하면 안댐!!! 
-                queen(r+1)
+    for col in range(N): # r행의 각각의 컬럼에 대해서 퀸 두기 
+        array[r] = col   
+        if promising(r) == True:   
+            queen(r+1)
 
 N = int(sys.stdin.readline())
-# N = 8
 array = [0] * N   ## [0, 0, 0, 0, 0, 0, 0, 0] 각 인덱스는 i행을 의미, 원소값은 i행의 열 번호를 의미  
-c = 0
+count = 0
 
 queen(0)
-print(c)
+print(count)
 # print(위치)
 
 # ## 체스두기 
