@@ -12,6 +12,7 @@ def promising(r):
             return False
     return True
 
+
 def dfs_visit(r: int):  # r == 퀸을 두기 위해 탐색하는 행
     global count
     if r == N:
@@ -22,6 +23,7 @@ def dfs_visit(r: int):  # r == 퀸을 두기 위해 탐색하는 행
         edges[r] = col
         if promising(r) == True:
             dfs_visit(r+1)
+
 
 N = int(sys.stdin.readline())
 count = 0

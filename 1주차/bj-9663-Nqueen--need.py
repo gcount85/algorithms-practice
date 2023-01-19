@@ -1,6 +1,4 @@
 # 출처: https://chanhuiseok.github.io/posts/baek-1/
-
-# 퀸을 놓는 과정을 재귀적으로 구현하고, 위처럼 1차원 배열만을 활용하여 다시 구현
 import sys
 
 # start 인덱스부터 시작
