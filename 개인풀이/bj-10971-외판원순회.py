@@ -18,14 +18,42 @@ W[i][j]=0는 도시 i에서 도시 j로 갈 수 없는 경우
 각 행렬의 성분은 1,000,000 이하의 양의 정수이며, 갈 수 없는 경우는 0이 주어진다. 
 """
 
+######### TODO: 최적화하기
+
+from itertools import permutations
 import sys
 input = sys.stdin.readline
 
 N = int(input())  # 2 <= N <= 10
 W = [list(map(int, input().split())) for _ in range(N)]
+permut = list(permutations(range(N)))
+min_cost = 1000000 * 10
 
-# dfs 방문
-# 다음과 같은 조건을 만나면 되돌아감
-# 1. i에서 j로 갈 수 없는 경우 (비용이 0인 경우)
-# 2. 돌아오는 경우가 아닌데 똑같은 도시 재방문 (돌아오는 경우 판별하도록 하기)
-# 이전 방문 비용을 변수에 저장 & 비교하여 min 값을 구하기 → 출력
+
+def dfs(N):
+    global min_cost
+    for p in permut:
+        temp_cost = 0
+        for i in range(N):
+            if (i == N-1):
+                j = 0
+            else:
+                j = i+1
+            temp = W[p[i]][p[j]]
+            if (temp == 0):
+                j = N  # 갈수 없는 경우의 cost를 비교하지 않게 하기 위해
+                break
+            temp_cost += temp
+        if (j == 0) and (temp_cost < min_cost):
+            min_cost = temp_cost
+
+
+dfs(N)
+print(min_cost)
+
+# 0. 순열 뽑아냄
+# 1. dfs 방문
+# 2. 다음과 같은 조건을 만나면 되돌아감
+#     1) i에서 j로 갈 수 없는 경우 (비용이 0인 경우)
+#     2) 돌아오는 경우가 아닌데 똑같은 도시 재방문 (돌아오는 경우 판별하도록 하기) -> 순열로 처리
+# 3. 이전 방문 비용을 변수에 저장 & 비교하여 min 값을 구하기 → 출력
