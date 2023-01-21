@@ -18,8 +18,6 @@ W[i][j]=0는 도시 i에서 도시 j로 갈 수 없는 경우
 각 행렬의 성분은 1,000,000 이하의 양의 정수이며, 갈 수 없는 경우는 0이 주어진다. 
 """
 
-######### TODO: 최적화하기
-
 from itertools import permutations
 import sys
 input = sys.stdin.readline
