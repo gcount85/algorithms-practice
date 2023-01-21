@@ -40,10 +40,10 @@ def dfs(N):
             else:
                 j = i+1
             temp = W[p[i]][p[j]]
-            if (temp == 0):
+            temp_cost += temp
+            if (temp == 0) or (temp_cost >= min_cost):
                 j = N  # 갈수 없는 경우의 cost를 비교하지 않게 하기 위해
                 break
-            temp_cost += temp
         if (j == 0) and (temp_cost < min_cost):
             min_cost = temp_cost
 
