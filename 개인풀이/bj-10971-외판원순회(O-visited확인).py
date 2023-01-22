@@ -38,7 +38,6 @@ def dfs_visit(start, visited):   # 목적지 도시 -> 시작 도시
             if (tmp_cost < min_cost):
                 min_cost = tmp_cost
             tmp_cost -= W[start][0]
-        # min_cost = min(min_cost, cost+W[start][0])
         return
 
     for dest in range(1, N):

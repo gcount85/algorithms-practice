@@ -24,26 +24,26 @@ input = sys.stdin.readline
 
 N = int(input())  # 2 <= N <= 10
 W = [list(map(int, input().split())) for _ in range(N)]
-permut = list(permutations(range(N)))
+permut = list(permutations(range(N)))   # 도시 방문 순서를 나타낸 순열
 min_cost = 1000000 * 10
 
 
 def dfs(N):
     global min_cost
     for p in permut:
-        temp_cost = 0
-        for i in range(N):
-            if (i == N-1):
+        temp_total = 0
+        for i in range(N):  # 시작도시와 도착도시의 인덱스 설정
+            if (i == N-1):  # 처음 출발 도시로 돌아와야 하는 경우
                 j = 0
             else:
                 j = i+1
-            temp = W[p[i]][p[j]]
-            temp_cost += temp
-            if (temp == 0) or (temp_cost >= min_cost):
-                j = N  # 갈수 없는 경우의 cost를 비교하지 않게 하기 위해
+            temp_cost = W[p[i]][p[j]]
+            temp_total += temp_cost
+            if (temp_cost == 0) or (temp_total >= min_cost):
+                j = N  # 갈수 없는 경우의 cost를 비교하지 않게 하기 위한 조건 설정
                 break
-        if (j == 0) and (temp_cost < min_cost):
-            min_cost = temp_cost
+        if (j == 0) and (temp_total < min_cost): # 처음 출발 도시로 돌아왔고, cost 비교
+            min_cost = temp_total
 
 
 dfs(N)
