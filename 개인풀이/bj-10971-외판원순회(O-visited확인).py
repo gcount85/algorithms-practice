@@ -25,28 +25,39 @@ N = int(input())  # 2 <= N <= 10
 W = [list(map(int, input().split())) for _ in range(N)]
 visited = [0] * N
 min_cost = 1000000 * 10
+tmp_cost = 0
 
 
-def dfs_visit(d, cost, visited):
-    global min_cost
-    if cost >= min_cost:
+def dfs_visit(start, visited):   # 목적지 도시 -> 시작 도시
+    global min_cost, tmp_cost
+    if tmp_cost >= min_cost:
         return
-    if (sum(visited) == N-1) and (W[d][0]):
-        min_cost = min(min_cost, cost+W[d][0])
+    if (sum(visited) == N-1):
+        if (W[start][0] != 0):
+            tmp_cost += W[start][0]
+            if (tmp_cost < min_cost):
+                min_cost = tmp_cost
+            tmp_cost -= W[start][0]
+        # min_cost = min(min_cost, cost+W[start][0])
         return
 
-    for i in range(1, N):
-        if (W[d][i]) and (not visited[i]):
-            visited[i] = 1
-            dfs_visit(i, W[d][i], visited)
-            visited[i] = 0
+    for dest in range(1, N):
+        if (W[start][dest] != 0) and (visited[dest] == 0):
+            visited[dest] = 1
+            tmp_cost += W[start][dest]
+            dfs_visit(dest, visited)
+            tmp_cost -= W[start][dest]
+            visited[dest] = 0
 
 
 def dfs(N):
+    global tmp_cost
     for d in range(1, N):
-        if (W[0][d]) and (not visited[d]):
+        if (W[0][d] != 0) and (visited[d] == 0):
             visited[d] = 1
-            dfs_visit(d, W[0][d], visited)
+            tmp_cost += W[0][d]
+            dfs_visit(d, visited)
+            tmp_cost = 0
             visited[d] = 0
 
 
