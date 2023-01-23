@@ -42,7 +42,7 @@ def dfs(N):
             if (temp_cost == 0) or (temp_total >= min_cost):
                 j = N  # 갈수 없는 경우의 cost를 비교하지 않게 하기 위한 조건 설정
                 break
-        if (j == 0) and (temp_total < min_cost): # 처음 출발 도시로 돌아왔고, cost 비교
+        if (j == 0) and (temp_total < min_cost):  # 처음 출발 도시로 돌아왔고, cost 비교
             min_cost = temp_total
 
 
