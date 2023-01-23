@@ -25,38 +25,30 @@ N = int(input())  # 2 <= N <= 10
 W = [list(map(int, input().split())) for _ in range(N)]
 visited = [0] * N
 min_cost = 1000000 * 10
-tmp_cost = 0
 
 
-def dfs_visit(start, visited):   # 목적지 도시 -> 시작 도시
-    global min_cost, tmp_cost
-    if tmp_cost >= min_cost:
+def dfs_visit(start, cost, visited):   # 목적지 도시 -> 시작 도시
+    global min_cost
+
+    if (cost >= min_cost):
         return
     if (sum(visited) == N-1):
         if (W[start][0] != 0):
-            tmp_cost += W[start][0]
-            if (tmp_cost < min_cost):
-                min_cost = tmp_cost
-            tmp_cost -= W[start][0]
+            min_cost = min(min_cost, cost + W[start][0])
         return
 
     for dest in range(1, N):
         if (W[start][dest] != 0) and (visited[dest] == 0):
             visited[dest] = 1
-            tmp_cost += W[start][dest]
-            dfs_visit(dest, visited)
-            tmp_cost -= W[start][dest]
+            dfs_visit(dest, cost + W[start][dest], visited)
             visited[dest] = 0
 
 
 def dfs(N):
-    global tmp_cost
     for d in range(1, N):
         if (W[0][d] != 0) and (visited[d] == 0):
             visited[d] = 1
-            tmp_cost += W[0][d]
-            dfs_visit(d, visited)
-            tmp_cost = 0
+            dfs_visit(d, W[0][d], visited)
             visited[d] = 0
 
 
@@ -65,9 +57,9 @@ print(min_cost)
 
 # 0. visited 1차원 배열 할당
 # 1. dfs 방문
-#   1) visited 확인 후 방문하지 않은 경우만 방문 (가장 작은 값을 먼저 방문하게 하면? -> 나중에 우선순위 큐를 이용할 수 있을 듯)
+#   1) visited 확인 후 방문하지 않은 경우만 방문 (가장 작은 값을 먼저 방문하게 하면? -> 정답 보장X)
 #   2. 다음과 같은 조건을 만나면 되돌아감
 #       1) i에서 j로 갈 수 없는 경우 (비용이 0인 경우)
 #       2) 돌아오는 경우가 아닌데 똑같은 도시 재방문
 #   3. 다시 원래 도시로 돌아온 경우
-#       1) 이전 방문 비용을 변수에 저장 & 비교하여 min 값을 구하기 → 출력
+#       1) min_cost 값과 비교하여 min 값 결정 → 출력
