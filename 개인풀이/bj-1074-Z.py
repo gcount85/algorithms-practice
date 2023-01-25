@@ -14,26 +14,26 @@ import sys
 input = sys.stdin.readline
 
 
-def Z(N, r, c, count):
+def z(N, r, c, count):
     if (N == 0):
         return count
     else:
         smaller_quad = (2**(N-1))
         if (r < smaller_quad) and (c < smaller_quad):  # 제1분면
-            return Z(N-1, r, c, count)
+            return z(N-1, r, c, count)
         elif (r < smaller_quad) and (c >= smaller_quad):  # 제2분면
             count += (2**(2*N-2))
-            return Z(N-1, r, c-smaller_quad, count)
+            return z(N-1, r, c-smaller_quad, count)
         elif (r >= smaller_quad) and (c < smaller_quad):  # 제3분면
             count += (2 * (2**(2*N-2)))
-            return Z(N-1, r-smaller_quad, c, count)
+            return z(N-1, r-smaller_quad, c, count)
         elif (r >= smaller_quad) and (c >= smaller_quad):  # 제4분면
             count += (3 * (2**(2*N-2)))
-            return Z(N-1, r-smaller_quad, c-smaller_quad, count)
+            return z(N-1, r-smaller_quad, c-smaller_quad, count)
 
 
 N, r, c = map(int, input().split())
-print(Z(N, r, c, 0))
+print(z(N, r, c, 0))
 
 
 # 1. 재귀 브레이크 (2^0 * 2^0 크기의 배열에 도착했을 때)
