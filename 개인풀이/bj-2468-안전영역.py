@@ -18,14 +18,29 @@ import sys
 
 def bfs_visit(s: tuple, parent, height):
     """
-    height 보다 큰 값을 갖는 노드만 갈 수 있음 
+    height 보다 큰 값을 갖는 노드만 방문할 수 있음 
 
     """
+    global N
+    frontier = [s]
+    while frontier:
+        nexts = []
+        for u in frontier:
+            # 가능한 인덱스
+            edges = [(u[0]+i[0], u[1]+i[1]) for i in dir
+                     if (0 <= u[0]+i[0] and u[0]+i[0] < N)
+                     and (0 <= u[1]+i[1] and u[1]+i[1] < N)]
+            for v in edges:
+                if (v not in parent) and (M[v[0]][v[1]] > height):
+                    parent[v] = u
+                    nexts.append(v)
+        frontier = nexts
 
 
-def bfs(N, max_h, min_h, 최대갯수):
+def bfs(N, max_h, min_h, max_c):
     if (min_h == max_h):
-        최대갯수 = max(1, 최대갯수)
+        max_c = max(1, max_c)
+        print(max_c)
         return
 
     height = min_h
@@ -37,17 +52,17 @@ def bfs(N, max_h, min_h, 최대갯수):
                 parent[(i, j)] = None
                 bfs_visit((i, j), parent, height)
                 count += 1
-    최대갯수 = max(count, 최대갯수)
-    bfs(N, max_h, min_h + 1, 최대갯수)
+    max_c = max(count, max_c)
+    bfs(N, max_h, min_h + 1, max_c)
 
 
 input = sys.stdin.readline
 N = int(input())
 M = []
-edges = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+dir = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 max_h = 0
 min_h = 0
-최대갯수 = 0
+max_c = 0
 for _ in range(N):
     temp = list(map(int, input().split()))
     for i in temp:
@@ -55,8 +70,15 @@ for _ in range(N):
         min_h = min(min_h, i)
     M.append(temp)
 
-bfs(N, max_h, min_h, 최대갯수)
+bfs(N, max_h, min_h, max_c)
 
 """
-전형적인 bfs 탐색
+- bfs 탐색
+1. 이차원 배열 입력 받으면서 높이의 최대/최솟값 알아내기
+2. bfs 방문 
+    1) 최소 높이부터 시작하여 최대 높이에 도달하면 재귀 브레이크
+    2) (0,0) 인덱스부터 bfs 탐색 시작
+    3) 방문 여부 & 높이 조건으로 방문 가능한지 아닌지 판단
+    4) 한 번 방문할 때마다 영역의 개수 +1
+
 """
