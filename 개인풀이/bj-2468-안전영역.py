@@ -24,17 +24,18 @@ def bfs_visit(s: tuple, parent, height):
     global N
     frontier = [s]
     while frontier:
-        nexts = []
-        for u in frontier:
-            # 가능한 인덱스
-            edges = [(u[0]+i[0], u[1]+i[1]) for i in dir
-                     if (0 <= u[0]+i[0] and u[0]+i[0] < N)
-                     and (0 <= u[1]+i[1] and u[1]+i[1] < N)]
-            for v in edges:
-                if (v not in parent) and (M[v[0]][v[1]] > height):
-                    parent[v] = u
-                    nexts.append(v)
-        frontier = nexts
+        (x, y) = frontier.pop()
+        for i in range(4):
+            next_x = x + dir[i][0]
+            next_y = y + dir[i][1]
+            if (next_x < 0) or (next_x >= N) or (next_y < 0) or (next_y >= N):
+                continue
+            if ((next_x, next_y) in parent):
+                continue
+            if (M[next_x][next_y] <= height):
+                continue
+            parent[(next_x, next_y)] = True
+            frontier.append((next_x, next_y))
 
 
 def bfs(N, max_h, min_h, max_c):
