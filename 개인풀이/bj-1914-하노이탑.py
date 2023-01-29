@@ -10,26 +10,38 @@
 이 작업을 수행하는데 필요한 이동 순서를 출력
 단, 이동 횟수 K는 최소
 
-첫째 줄에 첫 번째 장대에 쌓인 원판의 개수 N (1 ≤ N ≤ 100) 입력
-첫째 줄에 옮긴 횟수 K를 출력
-두 정수 A B를 빈칸을 사이에 두고 출력
-N이 20 이하인 입력에 대해서만 두 번째 줄부터 수행 과정을 출력
+입력: 첫째 줄에 첫 번째 장대에 쌓인 원판의 개수 N (1 ≤ N ≤ 100)
+출력
+- 첫째 줄에 옮긴 횟수 K
+- N이 20 이하인 입력에 대해서만, 둘째 줄부터 빈칸을 사이에 두고 A, B를 출력
+- 두 정수 A B는 A번째 탑의 가장 위에 있는 원판을 B번째 탑의 가장 위로 옮긴다는 뜻
 
 """
 
 import sys
 
 input = sys.stdin.readline
-N = int(input())
+inputN = int(input())
+count = 0
 
 
-def hanoi(N: int, pole1: int, pole2: int):
-    # if ~~~~
-    #     print(k)
-    #     return
+def hanoi(N: int, A: int, B: int):
+    global count, inputN
 
-    hanoi(N, )
+    if (N == 0):
+        return
 
+    count += 1
+    if (inputN <= 20):
+        print(A, B)
+
+    hanoi(N-1, A, 2)
+    # hanoi(N-2, A, B)
+    hanoi(N-1, 2, B)  # 마지막 공통 단계
+
+
+hanoi(N=inputN, A=1, B=3)
+print(count)
 
 """
 
