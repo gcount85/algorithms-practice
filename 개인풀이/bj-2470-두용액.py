@@ -20,11 +20,51 @@
 
 import sys
 
+
+def binarysearch(i, values, l, h):
+    m = (l + h) // 2
+    용액1 = values[i]
+    middle = abs(values[m] + 용액1)
+    high = abs(values[h] + 용액1)
+    low = abs(values[l] + 용액1)
+
+    if (middle == 0):
+        return middle, 용액2
+    if low < high:
+        binarysearch(i, values, l, m)
+    if low > high:
+        binarysearch(i, values, m, h)
+
+
 input = sys.stdin.readline
 N = int(input())
 values = list(map(int, input().split()))
+min_comb = 1000000000*2
+ans_용액2 = 0
 
-# 용액의 특성값 정렬; 0보다 작은 쪽, 0보다 큰 쪽 이렇게 두개로 나눔
-# 이분탐색
-# 0과의 절대값이 더 작은 쪽으로 탐색 범위 좁힘
-# 결과값을 혼합 특성값으로 저장(0과의 절대값이 기존의 혼합 특성값보다 작은 경우에만)
+
+for i in range((length := len(values))):
+    용액1 = values[i]
+    comb, 용액2 = binarysearch(i, values, 0, length-1)
+    if (comb == 0):
+        print(용액1, 용액2)
+        break
+    if (comb < min_comb):
+        min_comb = comb
+        ans_용액2 = 용액2
+
+
+# 1. 용액의 특성값 오름차순 정렬
+# 2. 용액 a에 대해서 용액 a를 제외한 나머지 용액에 대해 이분탐색
+#     1) 0과의 절대값이 더 작은 쪽으로 탐색 범위 좁힘
+#     2) 가장 작은 절대값을 혼합 특성값으로 저장
+# 3. 다른 용액들에 대해서도 똑같이 반복 & 가장 작은 혼합 특성값 찾아내기
+
+# If no items
+# 	Return false
+# If middle item is 50 // 중간 인덱스부터 시작
+# 	Return true
+# Else if 50 < middle item
+# 	Search left half
+# Else if 50 > middle item
+# 	Search right half
