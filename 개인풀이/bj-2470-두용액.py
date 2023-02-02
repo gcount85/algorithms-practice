@@ -19,39 +19,57 @@
 """
 
 import sys
-
-
-def binarysearch(i, values, l, h):
-    m = (l + h) // 2
-    용액1 = values[i]
-    middle = abs(values[m] + 용액1)
-    high = abs(values[h] + 용액1)
-    low = abs(values[l] + 용액1)
-
-    if (middle == 0):
-        return middle, 용액2
-    if low < high:
-        binarysearch(i, values, l, m)
-    if low > high:
-        binarysearch(i, values, m, h)
-
-
+min_comb = 1000000000*2
+ans_용액1 = 0
+ans_용액2 = 0
 input = sys.stdin.readline
 N = int(input())
 values = list(map(int, input().split()))
-min_comb = 1000000000*2
-ans_용액2 = 0
+values.sort()
+
+# todo- i와 동일한 인덱스는 건너뛰기, 반례해결하기
+
+
+def binarysearch(i, l, h):
+    """
+    i: 용액 1의 인덱스
+    l: 탐색 범위 시작 인덱스
+    h: 탐색 범위 끝 인덱스 
+    """
+
+    if l == i:
+        l += 1
+    if h == i:
+        h -= 1
+
+    m = (l + h) // 2
+    용액1 = values[i]
+    mid_comb = abs(values[m] + 용액1)
+    high_comb = abs(values[h] + 용액1)
+    low_comb = abs(values[l] + 용액1)
+
+    if (l >= h) or (low_comb == high_comb) or (mid_comb == 0):  # 종료조건 인덱스 잘 지정하기!
+        return mid_comb, values[m]
+    elif low_comb < high_comb:
+        return binarysearch(i, l, m-1)
+    elif high_comb < low_comb:
+        return binarysearch(i, m+1, h)
 
 
 for i in range((length := len(values))):
     용액1 = values[i]
-    comb, 용액2 = binarysearch(i, values, 0, length-1)
-    if (comb == 0):
-        print(용액1, 용액2)
+    mid_comb, 용액2 = binarysearch(i, 0, length-1)
+    if (용액1 == 용액2):
+        continue
+    if (mid_comb == 0):
+        print(min(용액1, 용액2), max(용액1, 용액2))
         break
-    if (comb < min_comb):
-        min_comb = comb
+    if (mid_comb < min_comb):
+        min_comb = mid_comb
+        ans_용액1 = 용액1
         ans_용액2 = 용액2
+
+print(min(ans_용액1, ans_용액2), max(ans_용액1, ans_용액2))
 
 
 # 1. 용액의 특성값 오름차순 정렬
@@ -60,11 +78,25 @@ for i in range((length := len(values))):
 #     2) 가장 작은 절대값을 혼합 특성값으로 저장
 # 3. 다른 용액들에 대해서도 똑같이 반복 & 가장 작은 혼합 특성값 찾아내기
 
-# If no items
-# 	Return false
-# If middle item is 50 // 중간 인덱스부터 시작
-# 	Return true
-# Else if 50 < middle item
-# 	Search left half
-# Else if 50 > middle item
-# 	Search right half
+
+"""반례
+input :
+5
+-99 -98 1 0 96
+    
+output :
+-98 96
+    
+correct ans :
+0 1
+
+input :
+5
+-98 -97 1 2 92
+    
+output :
+-97 92
+    
+correct ans :
+1 2
+"""
