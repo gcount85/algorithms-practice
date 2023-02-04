@@ -22,12 +22,11 @@ import sys
 min_comb = 1000000000*2
 ans_용액1 = 0
 ans_용액2 = 0
-input = sys.stdin.readline
-N = int(input())
-values = list(map(int, input().split()))
+N = int(sys.stdin.readline())
+values = list(map(int, sys.stdin.readline().split()))
 values.sort()
 
-# todo- i와 동일한 인덱스는 건너뛰기, 반례해결하기
+# todo- i와 동일한 인덱스는 건너뛰기, typeError, 마지막반례해결
 
 
 def binarysearch(i, l, h):
@@ -37,18 +36,14 @@ def binarysearch(i, l, h):
     h: 탐색 범위 끝 인덱스 
     """
 
-    if l == i:
-        l += 1
-    if h == i:
-        h -= 1
-
     m = (l + h) // 2
     용액1 = values[i]
     mid_comb = abs(values[m] + 용액1)
     high_comb = abs(values[h] + 용액1)
     low_comb = abs(values[l] + 용액1)
 
-    if (l >= h) or (low_comb == high_comb) or (mid_comb == 0):  # 종료조건 인덱스 잘 지정하기!
+    # if (l >= h) or (low_comb == high_comb) or (mid_comb == 0):
+    if (l >= h) or (low_comb == high_comb):  # 종료조건 인덱스 잘 지정하기!
         return mid_comb, values[m]
     elif low_comb < high_comb:
         return binarysearch(i, l, m-1)
@@ -61,9 +56,9 @@ for i in range((length := len(values))):
     mid_comb, 용액2 = binarysearch(i, 0, length-1)
     if (용액1 == 용액2):
         continue
-    if (mid_comb == 0):
-        print(min(용액1, 용액2), max(용액1, 용액2))
-        break
+    # if (mid_comb == 0):
+    #     print(min(용액1, 용액2), max(용액1, 용액2))
+    #     break
     if (mid_comb < min_comb):
         min_comb = mid_comb
         ans_용액1 = 용액1
@@ -99,4 +94,19 @@ output :
     
 correct ans :
 1 2
+
+5
+-100 -50 20 10 80
+
+4
+999999995 999999996 999999997 1000000000
+
+3
+-10 1 2
+1 2
+
+
+6
+1 2 3 4 5 6
+1 6
 """
