@@ -36,7 +36,13 @@ def binarysearch(i, l, h):
     h: 탐색 범위 끝 인덱스 
     """
 
+    if (l < h):
+        if (l == i):
+            l += 1
+        if (h == i):
+            h -= 1
     m = (l + h) // 2
+
     용액1 = values[i]
     mid_comb = abs(values[m] + 용액1)
     high_comb = abs(values[h] + 용액1)
@@ -75,31 +81,21 @@ print(min(ans_용액1, ans_용액2), max(ans_용액1, ans_용액2))
 
 
 """반례
-input :
 5
 -99 -98 1 0 96
-    
-output :
--98 96
-    
-correct ans :
 0 1
 
-input :
 5
 -98 -97 1 2 92
-    
-output :
--97 92
-    
-correct ans :
 1 2
 
 5
 -100 -50 20 10 80
+-100 80
 
 4
 999999995 999999996 999999997 1000000000
+999999995 999999996
 
 3
 -10 1 2
