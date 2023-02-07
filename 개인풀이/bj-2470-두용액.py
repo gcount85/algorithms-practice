@@ -22,25 +22,28 @@ import sys
 min_comb = 1000000000*2
 ans_용액1 = 0
 ans_용액2 = 0
+aux = 0  # values가 양수들의 리스트인지 확인 
 N = int(sys.stdin.readline())
 values = list(map(int, sys.stdin.readline().split()))
 values.sort()
 
+
 # todo- i와 동일한 인덱스는 건너뛰기, typeError, 마지막반례해결
 
 
-def binarysearch(i, l, h):
+def binarysearch(i, l, h, aux):
     """
     i: 용액 1의 인덱스
     l: 탐색 범위 시작 인덱스
     h: 탐색 범위 끝 인덱스 
     """
 
-    if (l < h):
+    if (l < h) and (aux == 1):
         if (l == i):
             l += 1
         if (h == i):
             h -= 1
+
     m = (l + h) // 2
 
     용액1 = values[i]
@@ -49,17 +52,21 @@ def binarysearch(i, l, h):
     low_comb = abs(values[l] + 용액1)
 
     # if (l >= h) or (low_comb == high_comb) or (mid_comb == 0):
-    if (l >= h) or (low_comb == high_comb):  # 종료조건 인덱스 잘 지정하기!
+    if (l > h) or (low_comb == high_comb):  # 종료조건 인덱스 잘 지정하기!
         return mid_comb, values[m]
     elif low_comb < high_comb:
-        return binarysearch(i, l, m-1)
+        return binarysearch(i, l, m-1, aux)
     elif high_comb < low_comb:
-        return binarysearch(i, m+1, h)
+        return binarysearch(i, m+1, h, aux)
+    # return mid_comb, values[m]
 
+
+if (values[0] >= 0):
+    aux = 1
 
 for i in range((length := len(values))):
     용액1 = values[i]
-    mid_comb, 용액2 = binarysearch(i, 0, length-1)
+    mid_comb, 용액2 = binarysearch(i, 0, length-1, aux)
     if (용액1 == 용액2):
         continue
     # if (mid_comb == 0):
@@ -82,7 +89,7 @@ print(min(ans_용액1, ans_용액2), max(ans_용액1, ans_용액2))
 
 """반례
 5
--99 -98 1 0 96
+-99 -98 0 1 96
 0 1
 
 5
@@ -92,6 +99,10 @@ print(min(ans_용액1, ans_용액2), max(ans_용액1, ans_용액2))
 5
 -100 -50 20 10 80
 -100 80
+
+5
+-100 -50 20 40 80
+-50 40
 
 4
 999999995 999999996 999999997 1000000000
@@ -104,5 +115,14 @@ print(min(ans_용액1, ans_용액2), max(ans_용액1, ans_용액2))
 
 6
 1 2 3 4 5 6
-1 6
+1 2
+
+6
+-6 -5 -4 -3 -2 -1
+-2 -1
+
+4
+-3 -1 1 10
+정답: -1 1
+
 """
