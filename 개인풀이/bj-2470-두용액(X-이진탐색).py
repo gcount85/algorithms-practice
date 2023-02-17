@@ -29,7 +29,7 @@ values.sort()
 
 
 # todo- i와 동일한 인덱스는 건너뛰기, typeError, 마지막반례해결
-
+# -1 곱한 값을 이분탐색으로 찾기
 
 def binarysearch(i, l, h, aux):
     """
