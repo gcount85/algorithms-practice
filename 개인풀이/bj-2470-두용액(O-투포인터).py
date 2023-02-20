@@ -24,8 +24,6 @@ N = int(sys.stdin.readline())
 values = list(map(int, sys.stdin.readline().split()))
 values.sort()
 
-#todo-시간초과해결!! 
-
 def solution(values, min_comb):
     ans1 = 0
     ans2 = 0
@@ -52,10 +50,9 @@ def solution(values, min_comb):
             ans2 = values[e]
         if min_comb == 0:
             break
-        if (e - s == 1):
-            e = len(values)-1
+        if values[s] + values[e] < 0:
             s += 1
-        else:
+        elif values[s] + values[e] > 0:
             e -= 1
 
     print(ans1, ans2)
@@ -65,8 +62,10 @@ solution(values, min_comb)
 
 # 1. 용액의 특성값 오름차순 정렬
 # 2. 투 포인터 검색 
-#     1) start, end 부터 검색 시작
-#     2) 가장 작은 절대값을 혼합 특성값으로 저장
+#   1) start, end에서 검색 시작
+#   2) 0과 제일 가까운 수 찾기!
+#   3) 0보다 작으면 start += 1
+#   4) 0보다 크면 end -= 1  
 
 
 """반례
