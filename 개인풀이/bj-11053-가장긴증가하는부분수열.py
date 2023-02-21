@@ -16,32 +16,35 @@ import sys
 
 N = int(sys.stdin.readline())
 A = list(map(int, sys.stdin.readline().split()))
+LIS = [A[0]]
 
-maxlen = 0
-for i in range(N):
-    s = i
-    e = i+1
-    count = 0
-    last = A[e-1]
-    while (e < N-1):
-        if (A[e] > last):
-            if count == 0:
-                count += 2
-            else:
-                count += 1
-        e += 1
-    maxlen = max(count, maxlen)
-print(maxlen)
+for i in range(1, N):
+    if A[i] > LIS[-1]:
+        LIS.append(A[i])
+    elif A[i] < LIS[-1]:
+        # 이분탐색으로 들어갈 자리 찾아서 대체
+
+print(len(LIS))
+
+
 
 
 """
-1. s, e 인덱스에서 검색 시작 (count = 0)
-2. e+1 인덱스 값 확인 
-    1) list[e] 값보다 큰 경우, count + 1
-    2) list[e] 값보다 작은 경우, s = e+1로 다시 위 과정 반복 
-3. 인덱스가 리스트의 마지막에 도달하면 반복 종료
+1. A의 원소들에 대해 반복 -> A[i]를 배열 LIS에 배치
+    1) LIS의 마지막 원소보다 A[i]가 크다면: LIS에 A[i] 추가
+    2) 작다면:
+        1) 배열 LIS안에 A[i]가 오름차순으로 위치할 수 있는 곳 이분탐색
+        2) 이분탐색으로 찾은 LIS의 해당 자리 값을 A[i]의 값으로 대체
+2. 배열 LIS의 길이 -> 정답
 
+"""
+
+"""
 반례
+
+6
+1 5 2 6 3 4
+답 4
 
 5
 3 1 3 2 1  
@@ -50,5 +53,13 @@ print(maxlen)
 5
 1 2 1 2 3
 3
+
+4
+1 4 2 3
+답 3
+
+5
+1 4 2 3 5
+답 4
 
 """
