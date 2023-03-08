@@ -18,15 +18,20 @@ N = int(sys.stdin.readline())
 A = list(map(int, sys.stdin.readline().split()))
 LIS = [A[0]]
 
+# todo: m이 -1이 뜰 때 해결
+
 
 def binary_search(l, h, target):
     m = (l+h)//2
-    if l >= h or target == LIS[m]:
-        return m
-    if target < LIS[m]:
-        return binary_search(l, m-1, target)
-    if target > LIS[m]:
-        return binary_search(m+1, h, target)
+    if h >= l:
+        if (target == LIS[m]) or (l >= h and target < LIS[m]):
+            return m
+        if l >= h and target > LIS[m]:
+            return m+1
+        if target < LIS[m]:
+            return binary_search(l, m-1, target)
+        if target > LIS[m]:
+            return binary_search(m+1, h, target)
 
 
 for i in range(1, N):
@@ -51,6 +56,10 @@ print(len(LIS))
 
 """
 반례
+20
+31 84 18 62 35 77 23 53 60 94 3 77 60 51 42 18 83 85 63 51
+답 7
+
 8
 10 15 20 1 2 3 4 5
 답 5
@@ -75,9 +84,7 @@ print(len(LIS))
 1 4 2 3 5
 답 4
 
-20
-31 84 18 62 35 77 23 53 60 94 3 77 60 51 42 18 83 85 63 51
-답 7
+
 
 
 """
