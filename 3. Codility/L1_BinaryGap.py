@@ -1,6 +1,8 @@
 from collections import deque
+import timeit
 
-def solution(N):
+
+def my_solution(N):
     stack = deque()
     gap = 0
 
@@ -8,7 +10,7 @@ def solution(N):
     binary_num = bin(N)[2:]
 
     for i in binary_num:
-        if i == '1' and len(stack) != 0: 
+        if i == '1' and len(stack) != 0:
             temp_gap = 0
             while stack[-1] != '1':
                 stack.pop()
@@ -17,6 +19,32 @@ def solution(N):
         stack.append(i)
 
     return gap
+
+
+# Elapsed time: 0.0028549000000000005 seconds
+def best_solution(N):
+    binary_num = bin(N)[2:]
+    max_gap = 0
+    temp_gap = 0
+
+    for i in binary_num:
+        if i == 0:
+            temp_gap += 1
+        else:
+            max_gap = max(temp_gap, max_gap)
+            temp_gap = 0
+
+    return max_gap
+
+
+N = 101000230345
+
+# Run the function 1000 times
+elapsed_time1 = timeit.timeit(lambda: my_solution(N), number=1000)
+print(f"Elapsed time: {elapsed_time1} seconds")
+
+elapsed_time2 = timeit.timeit(lambda: best_solution(N), number=1000)
+print(f"Elapsed time: {elapsed_time2} seconds")
 
 
 '''
