@@ -1,13 +1,3 @@
-# 1차시도
-# Task Score: 66%
-# Correctness: 50%
-# Performance: 83%
-
-# 2차시도
-# Task Score: 91%
-# Correctness: 100%
-# Performance: 83%
-
 def is_splited(large_sum, A, K):
     block_sum = 0
     block_count = 0
@@ -24,29 +14,27 @@ def is_splited(large_sum, A, K):
     return 1
 
 
-def search(low, high, A, K, answer):
-    if low > high:
-        return answer
-    else:
-        mid = (low + high) // 2
-        if (is_splited(mid, A, K) == 1):
-            answer = min(mid, answer)
-            return search(low, mid-1, A, K, answer)
-        else:
-            return search(mid+1, high, A, K, answer)
-
-
 def solution(K, M, A):
     N = len(A)
     answer = M * N
-    largest_sum = sum(A)
+    high = sum(A)
+    low = max(A) # low를 0으로 잡아야 엣지 케이스 통과
+
     if K == 1:
-        return largest_sum
+        return high
     if K >= N:
-        return max(A)
-    if largest_sum == M:
-        return M
-    answer = search(0, largest_sum, A, K, answer)
+        return low
+    if high == low:
+        return low
+
+    while low <= high:
+        mid = (low + high) // 2
+        if (is_splited(mid, A, K) == 1):
+            answer = min(mid, answer)
+            high = mid - 1
+        else:
+            low = mid + 1
+
     return answer
 
 
@@ -64,7 +52,8 @@ print(solution(K, M, A))
     2. K가 배열의 길이와 같거나 크다면 V !!!! 
     3. K가 1이라면 V
     4. block의 length가 0일 수도 있음 !!!! 
-    5. 다 더한 값이 M과 같다면 
+    5. 다 더한 값이 M과 같다면 ?
+    6. M보다 크지 않다는 말이, 최대값이 곧 M이라는 뜻은 아님!!!
 
 - 배열 쪼개기 확인 함수
 1. 배열을 주어진 sum 값을 최대 sum 값으로 유지하면서 K개로 쪼갤 수 있는지 확인
