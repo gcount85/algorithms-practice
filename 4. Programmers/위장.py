@@ -1,34 +1,23 @@
-from itertools import combinations
-
-
 def solution(clothes):
     clothes_dict = {}
-    count = 0
 
-    # 여기서 아예 옷 가지의 수만 카운트해서 딕셔너리 만들기 
+    # 각 카테고리에 몇 가지 옷이 있는지 카운트한 딕셔너리
     for item in clothes:
         if item[-1] in clothes_dict.keys():
             clothes_dict[item[-1]] += 1
         else:
             clothes_dict[item[-1]] = 1
-    
-    clothes_count = sum(clothes_dict.values())
 
-    for i in range(2, clothes_count + 1):
-        comb = list(combinations(clothes_dict.keys(), i))
-        # print(comb)
-        temp = 1
-        for c in comb:  # tuple
-            for k in c:
-                temp *= clothes_dict[k]
-            count += temp
-            temp = 1
+    count = 1
+    for value in clothes_dict.values(): # 옷가지 갯수에 대해서
+        count *= (value + 1)            # + 1은 해당 카테고리의 어떠한 옷도 입지 않는 경우
 
-    count += clothes_count
-    return count
+    return count - 1        # -1은 아무런 옷도 입지 않은 경우의 수를 제외하기 위함
 
 
-clothes = [["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"]]
+clothes = [["yellow_hat", "headgear"], [
+    "blue_sunglasses", "eyewear"], ["green_turban", "headgear"]]
+
 print(solution(clothes))
 
 
@@ -40,13 +29,6 @@ print(solution(clothes))
         (1) 의상 종류를 dict에서 검색
         (2) 몇 개 있는지 확인 후 저장
         (3) 모두 곱한 후 count 업데이트
-
-#2 
-1. 각각의 의상 종류마다 몇 개의 옷이 있는지 알려주는 딕셔너리 생성
-2. 경우의 수 계산
-    1) 의상 종류를 dict에서 검색
-    2) 몇 개 있는지 확인 후 저장
-    3) 모두 곱한 후 count 업데이트
 
 - 조합 원소 길이: 1개 ~ 의상의 종류 갯수
 - 어떤 종류의 의상을 입을 것인지 경우의 수를 다 구해서 각자 더함 
