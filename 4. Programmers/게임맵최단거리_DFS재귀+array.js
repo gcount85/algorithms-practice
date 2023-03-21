@@ -5,21 +5,20 @@ function solution(maps) {
   let visited = new Array(m).fill().map(() => new Array(n).fill(0));
   let answer = Infinity; // 10000에서 infinity 로 변경
 
-  dfs_visit(0, 0, 1, maps);
+  dfs_visit(0, 0, 1);
 
   // level을 매개변수로 추가
-  function dfs_visit(posX, posY, level, maps) {
+  function dfs_visit(posX, posY, level) {
     if (posX === m - 1 && posY === n - 1) {
       answer = Math.min(level, answer);
       return;
     }
 
-    const d = [1, -1];
     const edge = [
-      [posX + d[0], posY],
-      [posX + d[1], posY],
-      [posX, posY + d[0]],
-      [posX, posY + d[1]],
+      [posX + 1, posY],
+      [posX - 1, posY],
+      [posX, posY + 1],
+      [posX, posY - 1],
     ];
 
     for (let i = 0; i < 4; i++) {
@@ -38,7 +37,7 @@ function solution(maps) {
         continue;
       }
       visited[x][y] = 1;
-      dfs_visit(x, y, level + 1, maps);
+      dfs_visit(x, y, level + 1);
       visited[x][y] = 0; // Backtrack
     }
   }
