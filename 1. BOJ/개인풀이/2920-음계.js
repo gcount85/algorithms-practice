@@ -4,24 +4,48 @@
 const fs = require('fs');
 
 function solution() {
-  const 음계 = fs.readFileSync('./dev/stdin').toString().trim().split(' ');
+  const pitch = fs
+    .readFileSync('./dev/stdin', 'utf-8')
+    .trim()
+    .split(' ')
+    .map(Number);
 
-  //   console.log(음계);
+  console.log(pitch);
 
-  const n = 음계.length;
+  const n = pitch.length;
   let flag = 'ascending';
   let gap = -1;
-  if (음계[0] === '8') {
+  if (pitch[0] === '8') {
     flag = 'descending';
     gap = 1;
   }
 
   for (let i = 0; i < n - 1; i++) {
-    if (음계[i] - 음계[i + 1] != gap) {
+    if (pitch[i] - pitch[i + 1] != gap) {
       return 'mixed';
     }
   }
   return flag;
+}
+
+// refactored
+function solution() {
+  const pitch = fs
+    .readFileSync('./dev/stdin', 'utf-8')
+    .trim()
+    .split(' ')
+    .map(Number);
+
+  // console.log(pitch);
+
+  const isAscending = pitch
+    .slice(1)
+    .every((value, index) => value === pitch[index] + 1);
+  const isDescending = pitch
+    .slice(1)
+    .every((value, index) => value === pitch[index] - 1);
+
+  return isAscending ? 'ascending' : isDescending ? 'descending' : 'mixed';
 }
 
 console.log(solution());
