@@ -3,6 +3,7 @@
 # 간선의 개수 M(1 ≤ M ≤ 10,000),
 # 탐색을 시작할 정점의 번호 V
 
+from collections import deque
 import sys
 
 N, M, V = map(int, sys.stdin.readline().split())
@@ -34,6 +35,41 @@ def bfs(s, edges):
                     nexts.append(v)  # 탐색할 다음 노드에 v를 추가
         frontier = nexts    # 추가 된 다음 노드들을 frontier에 올림
         i += 1
+
+
+# 큐를 이용한 BFS 의사코드
+
+
+def BFS(graph, start_node):
+    visited = set()  # 방문한 노드를 저장할 집합
+    queue = deque([start_node])  # 탐색할 노드를 저장할 큐
+
+    while queue:
+        current_node = queue.popleft()  # 큐에서 첫 번째 노드를 꺼낸다.
+
+        if current_node not in visited:  # 현재 노드가 방문한 적이 없다면
+            visited.add(current_node)  # 방문한 노드로 표시하고
+            # 인접한 노드 중 방문하지 않은 노드를 큐에 추가한다.
+            queue.extend(
+                neighbor for neighbor in graph[current_node] if neighbor not in visited)
+
+    return visited
+
+
+# 사용 예시:
+graph = {
+    1: [2, 3],
+    2: [1, 4, 5],
+    3: [1, 6, 7],
+    4: [2],
+    5: [2],
+    6: [3],
+    7: [3]
+}
+
+start_node = 1
+visited_nodes = BFS(graph, start_node)
+print(visited_nodes)
 
 
 parent = {}          # 부모 노드를 지정해줌으로써 이미 방문했는지 아닌지 판별
