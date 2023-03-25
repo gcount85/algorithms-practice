@@ -1,17 +1,20 @@
 const fs = require('fs');
 
-const arr = fs
+const [scoreLength, scores] = fs
   .readFileSync('./dev/stdin', 'utf-8')
   .trim()
   .split('\n')
   .map((nums) => nums.split(' ').map(Number));
 
-const maxNum = Math.max(...arr[1]);
+console.log(scoreLength);
+console.log(scores);
 
-let newSum = arr[1].reduce(
+const maxScore = Math.max(...scores);
+
+let newSum = scores.reduce(
   (previousValue, currentValue) =>
-    previousValue + (currentValue / maxNum) * 100,
+    previousValue + (currentValue / maxScore) * 100,
   0
 ); // reduce 인자로 초기값 0을 주어야 첫번째 요소도 적용 됨
 
-console.log(newSum / arr[0]);
+console.log(newSum / scoreLength);
