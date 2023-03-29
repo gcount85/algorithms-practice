@@ -1,3 +1,4 @@
+// 100점 refactored
 const fs = require('fs');
 
 const [[K, N], ...lines] = fs
@@ -7,29 +8,28 @@ const [[K, N], ...lines] = fs
   .map((nums) => nums.split(' ').map(Number));
 
 const sortedLines = lines.flat().sort((a, b) => a - b);
-// console.log(sortedLines);
-
 let l = 0;
 let h = Math.max(...sortedLines);
 let m = 0;
-let answer = [];
+let maxCutLength = 0;
 
 while (l <= h) {
+  // l과 h가 같아질 때도 확인해야 함
   m = Math.floor((l + h) / 2);
+
   const cutLines = sortedLines.reduce(
-    (previousValue, currentValue) =>
-      previousValue + Math.floor(currentValue / m),
+    (sum, line) => sum + Math.floor(line / m),
     0
   );
 
   if (cutLines >= N) {
     l = m + 1;
-    answer.push(m);
+    maxCutLength = Math.max(maxCutLength, m);
   } else {
     h = m - 1;
   }
 }
-console.log(Math.max(...answer));
+console.log(maxCutLength);
 
 /*
 - 조건
@@ -44,9 +44,9 @@ console.log(Math.max(...answer));
     
 - 의사코드
     - (나무 자르기 같은 문제)
-    1) K개의 랜선 길이별로 정렬
+    1) K개의 랜선 길이별로 정렬 -> 사실 정렬 안 해도 되지만 정렬하면 시간이 단축됨!
     2) 랜선 리스트를 이분탐색
         1_ m의 길이로 잘랐을 때 생성되는 랜선 개수가 N개 이상이면: 길이를 더 높게
         2_ 아니라면: 길이를 더 낮게
   
-  */
+*/
