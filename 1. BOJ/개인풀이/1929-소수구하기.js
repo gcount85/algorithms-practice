@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-// 시간초과
+// refactored : O(N * log(log(N)))
 function solution() {
   const [M, N] = fs
     .readFileSync('./dev/stdin', 'utf-8')
@@ -12,24 +12,28 @@ function solution() {
   let prime = new Array(N + 1).fill(true);
   prime[0] = prime[1] = false;
 
-  for (let num = M; num < N + 1; num++) {
-    if (prime[num] === true) {
-      for (let i = 2; i < num; i++) {
-        if (num % i === 0) {
-          prime[num] = false;
-          break;
-        }
-      }
-      for (let j = num * 2; j < Math.sqrt(N + 1) + 1; j *= 2) {
-        if (prime[j] === true) {
-          prime[j] = false;
-        }
-      }
-      if (prime[num] === true) {
-        console.log(num);
+  for (let num = 2; num * num < N + 1; num++) {
+    if (prime[num]) {
+      // for (let i = 2; i < num; i++) { // 이 부분 무의미. 배수 지우기 작업만 하면 충분
+      //   if (num % i === 0) {
+      //     prime[num] = false;
+      //     break;
+      //   }
+      // }
+      for (let j = num ** 2; j < N + 1; j += num) {
+        prime[j] = false;
       }
     }
   }
+
+  let answer = [];
+  for (let k = M; k < N + 1; k++) {
+    if (prime[k]) {
+      answer.push(k);
+    }
+  }
+  process.stdout.write(answer.join('\n')); // console.log를 일일이 찍는 것보다 이렇게 하는 것이 훨씬 효율적
+  // console.log(...answer);
 }
 
 solution();
