@@ -1,7 +1,7 @@
 # https://www.acmicpc.net/problem/16236
 
 import sys
-from typing import Tuple
+from typing import Tuple    # 시간이 더 소요되지만 가독성을 위해 추가해봄
 from collections import deque
 
 
@@ -32,8 +32,8 @@ def bfs_visit(N, pos_shark, shark_size, aquarium) -> Tuple[tuple, int]:
             if aquarium[x][y] <= shark_size:
                 edge_queue.append(((x, y), dist+1))
                 visited.add((x, y))  # 추가하자마자 방문 체크하면 더 효율적
-            if 0 < aquarium[x][y] < shark_size:  # 먹을 수 있는 물고기들
-                targets.append(((x, y), dist+1))
+                if 0 < aquarium[x][y] < shark_size:  # 먹을 수 있는 물고기들
+                    targets.append(((x, y), dist+1))
 
     if targets == []:
         return None, 0
