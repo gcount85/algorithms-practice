@@ -1,17 +1,21 @@
 import multiprocessing
 import time
 
+lock = multiprocessing.Lock()
+
 
 def print_numbers():
     for i in range(10):
-        time.sleep(1)  # 1초 마다 숫자를 출력한다
-        print(i)
+        # time.sleep(1)  # 1초 마다 숫자를 출력한다
+        with lock:
+            print(i)
 
 
 def print_letters():
     for letter in '가나다라마바사아자차':
-        time.sleep(1)  # 1초 마다 문자를 출력한다
-        print(letter)
+        # time.sleep(1)  # 1초 마다 문자를 출력한다
+        with lock:
+            print(letter)
 
 
 # 프로세스를 생성하는 작업은 메인 코드 블럭에 넣어야 한다
