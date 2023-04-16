@@ -4,15 +4,19 @@ import time
 
 def print_numbers():
     for i in range(10):
-        time.sleep(1)  # 1초 마다 숫자를 출력한다
-        print(i)
+        # time.sleep(1)  # 1초 마다 숫자를 출력한다
+        with lock:
+            print(i)
 
 
 def print_letters():
     for letter in '가나다라마바사아자차':
-        time.sleep(1)  # 1초 마다 문자를 출력한다
-        print(letter)
+        # time.sleep(1)  # 1초 마다 문자를 출력한다
+        with lock:
+            print(letter)
 
+
+lock = threading.Lock()
 
 # 두 개의 스레드를 만든다
 t1 = threading.Thread(target=print_numbers)  # print_numbers를 호출하는 스레드
