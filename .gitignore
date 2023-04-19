@@ -2,3 +2,4 @@
 dev/
 __pycache__/
 temp/
+node_modules/
