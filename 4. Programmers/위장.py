@@ -9,7 +9,7 @@ def solution(clothes):
             clothes_dict[item[-1]] = 1
 
     count = 1
-    for value in clothes_dict.values(): # 옷가지 갯수에 대해서
+    for value in clothes_dict.values():  # 옷가지 갯수에 대해서
         count *= (value + 1)            # + 1은 해당 카테고리의 어떠한 옷도 입지 않는 경우
 
     return count - 1        # -1은 아무런 옷도 입지 않은 경우의 수를 제외하기 위함
