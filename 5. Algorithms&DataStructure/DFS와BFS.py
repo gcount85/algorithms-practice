@@ -37,10 +37,15 @@ def bfs(s, edges):
         i += 1
 
 
-# 큐를 이용한 BFS 의사코드
 
 
 def BFS(graph, start_node):
+    '''
+    큐를 이용한 BFS 코드
+    frotier를 이용하는 방식과 level 계산이 다르니 주의
+    node와 level을 같이 저장하고, 부모 노드의 level + 1 하는 방식으로 계산할 것    
+    '''
+
     visited = set()  # 방문한 노드를 저장할 집합
     queue = deque([start_node])  # 탐색할 노드를 저장할 큐
 
