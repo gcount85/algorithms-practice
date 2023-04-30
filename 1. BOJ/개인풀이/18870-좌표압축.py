@@ -4,24 +4,16 @@
 N개의 좌표 X1, X2, ..., XN
 
 """
+import sys
 
-n = int(input())
-coords = [(i, v) for i, v in enumerate(map(int, input().split()))]
-coords.sort(key=lambda x: (x[1]))
-# print(coords)
-
-num = float('inf')
-answer = []
-count = 0
-for index, value in coords:
-    if value == num:
-        answer.append((index, count-1))
-    else:
-        answer.append((index, count))
+n = int(sys.stdin.readline())
+# refactored 
+coords = list(map(int, input().split()))
+co_count = {} # 좌표의 개수를 담은 딕셔너리
+count = 0     # 임의의 좌표 c 보다 작은 좌표의 개수 
+for c in sorted(coords):
+    if c not in co_count:
+        co_count[c] = count
         count += 1
-    num = value
-    # print("count :", count, "num :", num)
+print(*[co_count[x] for x in coords])
 
-answer.sort()
-for i in answer:
-    print(i[1])
