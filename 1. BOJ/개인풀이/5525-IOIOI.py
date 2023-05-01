@@ -1,14 +1,13 @@
 # 100점 (O(N))
-import sys
+from sys import stdin
 
-n = int(sys.stdin.readline())
-m = int(sys.stdin.readline())
-s = sys.stdin.readline().strip()
+def check_pattern(s: str, n):
+    i = s.find("IOI")
+    if (i == -1):
+        return 0
 
-def check_pattern(s, n):
-    count = 0
     consecutive_ioi = 0
-    i = 0
+    count = 0
 
     while i < len(s) - 2:
         if s[i:i+3] == "IOI":
@@ -23,37 +22,8 @@ def check_pattern(s, n):
 
     return count
 
+n = int(stdin.readline())
+m = int(stdin.readline())
+s = stdin.readline().strip()
+
 print(check_pattern(s, n))
-
-
-# def check_pattern(l, h):
-#     tmp_l, tmp_h = l, h
-#     while tmp_l <= tmp_h:
-#         ioi = 'I'
-#         if (tmp_l - l) % 2 == 1:
-#             ioi = 'O'
-#         if s[tmp_l] != s[tmp_h]:
-#             return False
-#         if s[tmp_l] != ioi or s[tmp_h] != ioi:
-#             return False
-#         tmp_l += 1
-#         tmp_h -= 1
-#     return True
-    
-
-# l, h = 0, 2 * n
-# count = 0
-# while h < m:
-#     if check_pattern(l, h):
-#         # print(s[l:h+1])
-#         count += 1
-#         l += 2
-#         h += 2
-#     else:
-#         l += 1
-#         h += 1
-    
-# print(count)
-
-
-
