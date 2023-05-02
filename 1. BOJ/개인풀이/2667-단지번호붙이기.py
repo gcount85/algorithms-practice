@@ -1,7 +1,7 @@
 from sys import stdin
 
 n = int(stdin.readline())
-town = [stdin.readline().strip() for _ in range(n)]
+town = [stdin.readline() for _ in range(n)]
 visit = [[0] * n for _ in range(n)]
 
 
@@ -10,26 +10,21 @@ def dfs(n, i, j, num):
         nx, ny = i + dx, j + dy
         if not (0 <= nx < n and 0 <= ny < n):
             continue
-        if town[nx][ny] == '0':
-            continue
-        if visit[nx][ny] == 1:
+        if town[nx][ny] == '0' or visit[nx][ny] == 1:
             continue
         visit[nx][ny] = 1
-        num[0] += 1
-        dfs(n, nx, ny, num)
-    return num[0]
+        num = dfs(n, nx, ny, num + 1)
+    return num
 
 ans = []
 cnt = 0
 for i in range(n):
     for j in range(n):
-        if town[i][j] == '0':
-            continue
-        if visit[i][j] == 1:
+        if town[i][j] == '0' or visit[i][j] == 1:
             continue
         visit[i][j] = 1
         cnt += 1
-        num = [1]
+        num = 1
         ans.append(dfs(n, i, j, num))
 
 
