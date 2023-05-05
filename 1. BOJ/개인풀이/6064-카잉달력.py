@@ -1,12 +1,15 @@
+# https://www.acmicpc.net/problem/6064
+
 from sys import stdin
+import math
 
 def solution():
     m, n, x, y = map(int, stdin.readline().split())
-    for i in range(40000):
-        num = ((m * i) - (y - x)) / n
+    lcm = math.lcm(m, n)
+    for i in range(x, lcm + 1, m):
+        num = (i - y) / n
         if num.is_integer():
-            # print(num)
-            return i * m + x
+            return i
     return -1
             
 
@@ -20,6 +23,8 @@ print(*answer)
 1 ≤ M, N ≤ 40000, 
 1 ≤ x ≤ M, 
 1 ≤ y ≤ N
+
+연립합동방정식 
 """
 
 
