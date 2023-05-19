@@ -17,25 +17,25 @@ def solution(n, m, btns):
     pointer = 0
     candid = [None] * len(str(n)) 
     while pointer < len(str(n)):
-        if (num := int(str(n)[pointer])) in btns:
-            (tmp := [[abs(num-i), i] for i in range(11) if i not in btns]).sort()
-            candid[pointer] = [tmp[0][1], tmp[1][1]]
-        else:
-            candid[pointer] = [num]
+        num = int(str(n)[pointer])
+        tmp = []
+        for b in range(10):
+            if b not in btns:   # i가 누를 수 있는 버튼이면 
+                tmp.append([abs(num-b), b])
+                tmp.append([abs(num+10-b), b])
+        tmp.sort()
+        candid[pointer] = [tmp[0][1], tmp[1][1]]
         pointer += 1
-
+    print(tmp)
+    print(candid)
     num0, num1 = "", ""
     for p, digit in enumerate(candid):
-        if len(digit) == 2:
-            if p > 0 and digit[0] == 10:
-                digit[0] = "0"
-            if p > 0 and digit[1] == 10:
-                digit[1] = "0"
-            num0 += str(digit[0])
-            num1 += str(digit[1])
-        else: 
-            num0 += str(digit[0])
-            num1 += str(digit[0])
+        if p == 0 and digit[0] == 10:
+                digit[0] = "10"
+        if p == 0 and digit[1] == 10:
+                digit[1] = "10"
+        num0 += str(digit[0])
+        num1 += str(digit[1])
 
     # print(num0, num1)
     return min(abs(int(num0)-n) + len(num0), abs(int(num1)-n) + len(num1))
