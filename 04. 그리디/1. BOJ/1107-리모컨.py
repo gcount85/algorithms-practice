@@ -1,4 +1,6 @@
 # https://www.acmicpc.net/problem/1107
+# 그리디 방식으로 풀었으나 정확하지 않음. 완전 탐색으로 다시 풀이 
+
 from sys import stdin
 
 n = int(stdin.readline())
@@ -8,7 +10,7 @@ if m != 0:
 else:
     btns = None
 
-def solution(n, m, btns):
+def solution(n, btns):
     if n == 100:
         return 0
     if not btns or not [btn for btn in btns if str(btn) in str(n)]:
@@ -26,8 +28,10 @@ def solution(n, m, btns):
         tmp.sort()
         candid[pointer] = [tmp[0][1], tmp[1][1]]
         pointer += 1
-    print(tmp)
-    print(candid)
+
+    # print(tmp)
+    # print(candid)
+
     num0, num1 = "", ""
     for p, digit in enumerate(candid):
         if p == 0 and digit[0] == 10:
