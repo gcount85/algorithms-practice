@@ -12,26 +12,17 @@
 """
 
 from sys import stdin
+from collections import deque
 
-n, m = map(int, stdin.readline().split())
-input_map = [list(map(int, stdin.readline().split())) for _ in range(n)]
-output_map = [[-1] * m for _ in range(n)] # false로 초기화하면 원래 갈수 없는 벽(0)을 확인할 때 에러
+DIRECTIONS = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
-for i, k in enumerate(input_map):
-    for j, v in enumerate(k):
-        if v == 2:
-            sx, sy = i, j
-        if v == 0:
-            output_map[i][j] = 0
-
-def bfs():
-    direction = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-    queue = [(sx, sy, 0)]
+def bfs(input_map, sx, sy):
+    queue = deque([(sx, sy, 0)])
     output_map[sx][sy] = 0
 
     while queue:
-        x, y, dist = queue.pop(0)
-        for xdir, ydir in direction:
+        x, y, dist = queue.popleft()
+        for xdir, ydir in DIRECTIONS:
             nx = x + xdir
             ny = y + ydir 
             if (nx < 0 or ny < 0 or nx > n-1 or ny > m-1):
@@ -43,10 +34,21 @@ def bfs():
                 continue
             output_map[nx][ny] = dist + 1
             queue.append((nx, ny, dist + 1))
+    return output_map
 
-bfs()
+n, m = map(int, stdin.readline().split())
+input_map = [list(map(int, stdin.readline().split())) for _ in range(n)]
+output_map = [[-1] * m for _ in range(n)] # false로 초기화하면 원래 갈수 없는 벽(0)을 확인할 때 에러
 
-for i in output_map:
+
+for i, row in enumerate(input_map):
+    for j, value in enumerate(row):
+        if value == 2:
+            sx, sy = i, j
+        if value == 0:
+            output_map[i][j] = 0
+
+for i in bfs(input_map, sx, sy):
     print(*i)
 
 
