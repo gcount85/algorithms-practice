@@ -10,6 +10,7 @@ N개의 수가 주어졌을 때, 이를 오름차순으로 정렬
 """
 
 import sys
+
 input = sys.stdin.readline
 
 N = int(input())
@@ -22,6 +23,6 @@ for i in range(N):
 
 # 배열을 순회하며 count가 존재하면 인덱스 출력
 for j in range(1, 10001):
-    if (array[j] != 0):
+    if array[j] != 0:
         for _ in range(array[j]):
             print(j)
