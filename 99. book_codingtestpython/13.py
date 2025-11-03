@@ -34,17 +34,17 @@ def solution(board, moves):
     """
     stack = []
     count = 0
-    for e in moves:
+    for e in moves:  # N번 반복
         col_index = e - 1
         push_candid = 0
-        for row in board:
+        for row in board:  # N번 반복
             if row[col_index] != 0:
                 push_candid = row[col_index]
                 row[col_index] = 0
                 break
         if push_candid == 0:
             continue
-        while stack and stack[-1] == push_candid:
+        while stack and stack[-1] == push_candid:  # M번 반복
             stack.pop()  # []
             count += 2
             if not stack:
@@ -53,3 +53,6 @@ def solution(board, moves):
         else:
             stack.append(push_candid)
     return count
+
+
+# 시간 복잡도 log(N^2 + M)
