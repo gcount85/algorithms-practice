@@ -20,7 +20,7 @@ def solution(genres, plays):
     n = len(genres)
 
     # 장르 : 플레이 횟수, 노래 배열을 담은 딕셔너리 생성
-    for i in range(n):
+    for i in range(n):  # O(N)
         genre = genres[i]
         play = plays[i]
         if genre not in dic:
@@ -32,12 +32,12 @@ def solution(genres, plays):
             dic[genre] = [p, songs]
     # print(dic)
 
-    sorted_dic = sorted(dic.items(), key=lambda x: (-x[1][0]))
+    sorted_dic = sorted(dic.items(), key=lambda x: (-x[1][0]))  # O(MlogM)
     answer = []
 
     # print(sorted_dic)
 
-    for _, (_, songs) in sorted_dic:  # [(1, 600), (4, 2500)]
+    for _, (_, songs) in sorted_dic:  # [(1, 600), (4, 2500)] # O(M)
         if len(songs) == 1:
             answer.append(songs[0][0])
             continue
