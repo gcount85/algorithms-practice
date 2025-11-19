@@ -10,8 +10,6 @@ def preorder(arr, i, answer):
         preorder(arr, i * 2 + 1, answer)
         preorder(arr, i * 2 + 2, answer)
         return answer
-    else:
-        return answer
 
 
 def inorder(arr, i, answer):
@@ -26,8 +24,6 @@ def inorder(arr, i, answer):
         answer.append(arr[i])
         inorder(arr, i * 2 + 2, answer)
         return answer
-    else:
-        return answer
 
 
 def postorder(arr, i, answer):
@@ -41,8 +37,6 @@ def postorder(arr, i, answer):
         postorder(arr, i * 2 + 1, answer)
         postorder(arr, i * 2 + 2, answer)
         answer.append(arr[i])
-        return answer
-    else:
         return answer
 
 
