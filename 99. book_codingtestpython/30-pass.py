@@ -4,7 +4,7 @@ from collections import deque
 def bfs(ways, lever, start, target):
     q = deque()
     q.append((start, False, 0))
-    visited = set([(start, False)])
+    visited = {(start, False)}
 
     while q:
         now, found_lever, dist = q.popleft()
