@@ -23,7 +23,7 @@ def solution(start, num_nodes, edges):
         graph[s].append((d, w))
 
     INF = float("inf")
-    visited = set()
+    visited = set()  # ⚠️ 다익스트라의 visited는 정확히 “최단거리 확정(settled)됨”의 의미
     distances = [INF] * num_nodes
     distances[start] = 0
 
