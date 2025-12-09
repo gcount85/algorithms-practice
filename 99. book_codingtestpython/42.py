@@ -22,11 +22,17 @@ def solution(maps):
     target = (row - 1, col - 1)
     queue = deque([(start, 1)])
     visited = {start}
+    direction = [
+        (1, 0),
+        (-1, 0),
+        (0, 1),
+        (0, -1),
+    ]  # ⚠️ direction을 변수로 놔서 반복문에서 매번 생성하지 않게
     while queue:
         cur, dist = queue.popleft()
         if cur == target:
             return dist
-        for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+        for x, y in direction:
             nx, ny = cur[0] + x, cur[1] + y
             if nx < 0 or ny < 0 or nx >= row or ny >= col:
                 continue
