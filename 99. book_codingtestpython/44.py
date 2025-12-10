@@ -24,25 +24,25 @@ def solution(N, road, K):
     """
 
     INF = float("inf")
-    distances = [INF for _ in range(N + 1)]
+    distances = [INF for _ in range(N + 1)]  # O(N)
     graph = defaultdict(list)
 
-    for source, dest, weight in road:
+    for source, dest, weight in road:  # O(E)
         graph[source].append((dest, weight))
         graph[dest].append((source, weight))
 
     queue = [(0, 1)]  # 거리, 노드번호
     distances[1] = 0
     while queue:
-        cur_dist, cur_node = heapq.heappop(queue)
+        cur_dist, cur_node = heapq.heappop(queue)  # O(logE)
         if cur_dist > K:
             continue
         if cur_dist != distances[cur_node]:
             continue
-        for dest, weight in graph[cur_node]:
+        for dest, weight in graph[cur_node]:  # 최대 E번 반복
             if distances[dest] > cur_dist + weight:
                 distances[dest] = cur_dist + weight
-                heapq.heappush(queue, (distances[dest], dest))
+                heapq.heappush(queue, (distances[dest], dest))  # O(NlogN)
 
-    answer = sum(1 for v in distances if v <= K)
+    answer = sum(1 for v in distances if v <= K)  # O(N)
     return answer
