@@ -1,5 +1,5 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/159993?language=python3
-# 2회 복습 50분 solved
+# 1회 복습 50분 solved
 
 from collections import deque
 
