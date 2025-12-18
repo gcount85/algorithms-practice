@@ -9,7 +9,7 @@ def solution(n, arr):
         for i in range(m):
             for j in range(m):
                 new_arr[j][(m - 1) - i] = answer[i][j]
-        answer = new_arr[:]
+        answer = new_arr
     return answer
 
 
