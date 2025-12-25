@@ -1,0 +1,48 @@
+# 연문3: 달팽이 수열 만들기: n 바이 n
+
+
+def solution(n):
+    snail_array = [[0] * n for _ in range(n)]
+
+    start_row, end_row = 0, n - 1
+    start_col, end_col = 0, n - 1
+
+    num = 1
+    while num <= n * n:
+        # 좌->우
+        for i in range(start_col, end_col + 1):
+            snail_array[start_row][i] = num
+            num += 1
+        start_row += 1
+
+        # 위 아래
+        for i in range(start_row, end_row + 1):
+            snail_array[i][end_col] = num
+            num += 1
+        end_col -= 1
+
+        # 우 좌
+        for i in range(end_col, start_col - 1, -1):
+            snail_array[end_row][i] = num
+            num += 1
+        end_row -= 1
+
+        # 아래 위
+        for i in range(end_row, start_row + 1):
+            snail_array[i][start_col] = num
+            num += 1
+        start_col += 1
+
+    return snail_array
+
+
+print(
+    solution(
+        3,
+    )
+)  # [[1, 2, 3], [8, 9, 4], [7, 6, 5]]
+print(
+    solution(
+        4,
+    )
+)  # [[1, 2, 3, 4], [12, 13, 14, 5], [11, 16, 15, 6], [10, 9, 8, 7]]
