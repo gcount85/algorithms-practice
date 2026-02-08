@@ -12,12 +12,9 @@ def solution(nums):
     n = len(nums)
     dp = [1] * n
     for i in range(1, n):
-        best = 0
         for j in range(i):
             if nums[j] < nums[i]:
-                best = max(best, dp[j])
-        dp[i] = 1 + best
-    print(dp)
+                dp[i] = max(dp[i], dp[j] + 1)
     return max(dp)
 
 
